@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h3>Travel Cheatsheet</h3>
+  <h2 class="mt-6">Travel Cheatsheet</h2>
   <v-row class="mt-3">
     <v-col>
       cities visited:

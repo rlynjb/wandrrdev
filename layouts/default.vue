@@ -13,7 +13,7 @@
         </v-col>
 
         <v-col cols="12" sm="12" md="7"
-          class="pt-3">
+          class="pt-3 text-right">
           <v-item-group>
             <v-btn depressed>
               About
@@ -64,10 +64,6 @@ export default {
 </script>
 
 <style>
-.Header-logo {
-  width: 3em;
-  height: 60px !important;
-}
 .Header-logoText {
   line-height: 0.8;
 }
