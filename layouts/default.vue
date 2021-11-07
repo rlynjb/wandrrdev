@@ -4,16 +4,13 @@
       fixed
       app
     >
-      <v-row no-gutters class="justify-space-between">
+      <v-row no-gutters class="justify-space-between align-center">
         <v-col cols="12" sm="12" md="5">
-          <VuetifyLogo class="Header-logo mr-3 d-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block" />
-          <i class="ml-2 mr-3 d-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block">
-            Portfolio | Tech & Travel
-          </i>
+          <VuetifyLogo class="Header-logo" />
         </v-col>
 
         <v-col cols="12" sm="12" md="7"
-          class="pt-3 text-right">
+          class="text-right">
           <v-item-group>
             <v-btn depressed>
               About

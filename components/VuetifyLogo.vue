@@ -2,16 +2,18 @@
   <img
     class="VuetifyLogo"
     alt="Vuetify Logo"
-    src="/vuetify-logo.svg"
+    src="/logo.png"
   >
 </template>
 
 <style>
 .VuetifyLogo {
   height: auto;
-  width: 3em;
+  width: 12em;
+  /*
   transform: rotateY(560deg);
   animation: turn 3.5s ease-out forwards 1s;
+  */
 }
 
 @keyframes turn {
