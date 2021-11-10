@@ -4,35 +4,52 @@
       fixed
       app
     >
+      <v-container>
       <v-row no-gutters class="justify-space-between align-center">
         <v-col cols="12" sm="12" md="5">
-          <VuetifyLogo class="Header-logo" />
+          <NuxtLink to="/">
+            <VuetifyLogo class="Header-logo" />
+          </NuxtLink>
         </v-col>
 
         <v-col cols="12" sm="12" md="7"
           class="text-right">
-          <v-item-group>
-            <v-btn depressed>
-              About
-            </v-btn>
-            <v-btn depressed>
-              Experience
-            </v-btn>
-            <v-btn depressed>
-              Work
-            </v-btn>
-            <v-btn depressed>
-              Contact
-            </v-btn>
-            <v-btn depressed>
-              Resume
-            </v-btn>
-            <v-btn depressed>
-              Travel
-            </v-btn>
+          <!-- displays only for md and lg screens -->
+          <v-item-group class="d-none d-sm-none d-md-flex d-lg-flex d-xl-flex float-right">
+            <NuxtLink v-for="(menuItem, menuInd) in menu" :key="'menu-'+menuInd"
+              :to="menuItem.url"
+              class="ml-6">
+              {{ menuItem.name }}
+            </NuxtLink>
           </v-item-group>
+
+          <!-- display only for sm and lower -->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn class="d-xs-flex d-sm-flex d-md-none d-lg-none d-xl-none float-right mt-n14"
+                dark
+                depressed
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-menu</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="(mobileBtnItem, mobileBtnIndex) in menu" :key="'mobileBtn-'+mobileBtnIndex"
+              >
+                <v-list-item-title>
+                  <NuxtLink :to="mobileBtnItem.url">
+                    {{ mobileBtnItem.name }}
+                  </NuxtLink>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-col>
       </v-row>
+      </v-container>
     </v-app-bar>
 
     <v-main>
@@ -55,12 +72,23 @@ export default {
   data () {
     return {
       fixed: true,
+      menu: [
+        { name: 'About', url: '/#about' },
+        { name: 'Experience', url: '/#experience' },
+        { name: 'Work', url: '/#work' },
+        { name: 'Contact', url: '/#contact' },
+        { name: 'Resume', url: '/' },
+        { name: 'Travel', url: '/travel_cheatsheet' }
+      ],
     }
   }
 }
 </script>
 
 <style>
+a {
+  text-decoration: none;
+}
 .Header-logoText {
   line-height: 0.8;
 }

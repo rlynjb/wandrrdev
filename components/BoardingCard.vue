@@ -65,7 +65,8 @@
           <b :class="labelStyle">0.5miles radius within where i stayed</b><br>
           {{ boardItem.nearby_essentials_desc }}
           <v-btn depressed
-            class="mt-3">
+            class="mt-3"
+            @click="gotoGmap('public_transit')">
             public transits
           </v-btn>
           <v-btn depressed

@@ -1,6 +1,6 @@
 <template>
-<div>
-  <h2 class="mt-6">Travel Cheatsheet</h2>
+<div class="pt-10 pb-16">
+  <h2>Travel Cheatsheet</h2>
   <v-row class="mt-3">
     <v-col>
       <b class="d-block d-sm-block d-md-block d-lg-block d-xl-block">cities:</b>
