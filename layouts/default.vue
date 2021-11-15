@@ -21,6 +21,11 @@
               class="ml-6">
               {{ menuItem.name }}
             </NuxtLink>
+            <a href="https://docs.google.com/document/d/1LOO_sdXimhxD43TeWSkoZbqASsT3B68l9YAdkyxmwNU/edit?usp=sharing"
+              target="_blank" class="ml-6"
+            >
+              Resume
+            </a>
           </v-item-group>
 
           <!-- display only for sm and lower -->
@@ -43,6 +48,16 @@
                   <NuxtLink :to="mobileBtnItem.url">
                     {{ mobileBtnItem.name }}
                   </NuxtLink>
+                </v-list-item-title>
+              </v-list-item>
+
+              <v-list-item>
+                <v-list-item-title>
+                  <a href="https://docs.google.com/document/d/1LOO_sdXimhxD43TeWSkoZbqASsT3B68l9YAdkyxmwNU/edit?usp=sharing"
+                    target="_blank"
+                  >
+                    Resume
+                  </a>
                 </v-list-item-title>
               </v-list-item>
             </v-list>
@@ -77,7 +92,6 @@ export default {
         { name: 'Experience', url: '/#experience' },
         { name: 'Work', url: '/#work' },
         { name: 'Contact', url: '/#contact' },
-        { name: 'Resume', url: '/' },
         { name: 'Travel', url: '/travel_cheatsheet' }
       ],
     }
