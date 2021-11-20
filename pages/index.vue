@@ -1,27 +1,27 @@
 <template>
-<div>
+<div class="pt-16">
   <v-row justify="center" align="center" class="pt-16 pb-16">
-    <v-col cols="4">
-      <img src="logo.png" />
+    <v-col cols="3">
+      <img src="logo2.png" />
     </v-col>
     <v-col cols="8" class="pt-16 pb-16 pr-16">
-      <p>Hi, my name is</p>
-      <h1>ReinaLyn</h1>
-      <h2>I build things for the web.</h2>
+      <h3 class="primary--text">Hi, my name is</h3>
+      <h1 class="font-weight-light text-lg-h1">ReinaLyn</h1>
+      <h2 class="primary--text">I build stuff for the internet.</h2>
       <p>
-        I’m a software engineer specializing in building (and occasionally designing) exceptional digital experiences. Currently, I’m focused on building accessible, human-centered products at Upstatement.
+        I’m a software engineer specializing in building (and occasionally designing) digital experiences. Currently, I’m focused on extending features, rafactoring, and rewriting code on existing applications at Switch.
       </p>
     </v-col>
   </v-row>
 
   <v-row justify="center" align="center" class="pt-16 pb-16">
-    <v-col cols="7" id="about" class="pt-16 pb-16">
+    <v-col cols="8" id="about" class="pt-16 pb-16">
       <h3 class="primary--text">About Me</h3>
       <p>
-        Hello! My name is ReinaLyn and I enjoy creating things that live on the internet. My interest in web development started back in 2012 when I decided to try editing custom Tumblr themes — turns out hacking together a custom reblog button taught me a lot about HTML & CSS!
+        Hello! My name is ReinaLyn and I enjoy creating things that live on the internet. My interest in web development started back in 2004 when I decided to try Macromedia Flash — turns out hacking together a custom reblog button taught me a lot about HTML & CSS!
       </p>
       <p>
-        Fast-forward to today, and I’ve had the privilege of working at an advertising agency, a start-up, a huge corporation, and a student-led design studio. My main focus these days is building accessible, inclusive products and digital experiences at Upstatement for a variety of clients.
+        Fast-forward to today, and I’ve had the privilege of working at start-ups, an advertising agency, a medium size company, and a huge corporation. My main focus these days is building accessible, inclusive products and digital experiences at Switch for a variety of clients.
       </p>
       <p>
         I also recently launched a course that covers everything you need to build a web app with the Spotify API using Node & React.
@@ -44,7 +44,7 @@
       <v-timeline align-top dense>
         <v-timeline-item small
           v-for="(expItem, expIndex) in experience" :key="'exp-'+expIndex">
-          <h3>
+          <h3 class="primary--text">
             {{ expItem.company }}
             <b class="subtitle-1 d-block">{{ expItem.date }}</b>
           </h3>
@@ -57,7 +57,7 @@
         </v-timeline-item>
       </v-timeline>
     </v-col>
-
+    <!--
     <v-col cols="12" id="work" class="pt-16 pb-16">
       <h3 class="primary--text mb-4">Some Things I've Built</h3>
       <v-row>
@@ -76,6 +76,7 @@
         </v-col>
       </v-row>
     </v-col>
+    -->
   </v-row>
 
   <v-row justify="center" align="center" class="pt-16 pb-16">
@@ -100,7 +101,7 @@ export default {
           desc: [
             'Develop internal apps using Vue.js consuming and handling thousands of data.',
             'Communicate with developers & managers on a daily basis to build features from ideation to production.',
-            'Built stunning landing pages using CSS responsive techniques and design concepts',
+            'Built impressive landing pages using CSS responsive techniques and design concepts',
             'Occasionally design UI/UX based on project requirements.',
             'Occasionally maintain customer facing websites using Wordpress.'
           ]
@@ -138,13 +139,6 @@ export default {
             "Researched latest news/articles and version releases of Ember.js",
             "Wrote a responsive grid system from scratch to avoid bloated CSS",
             "Researched and implemented BEM and OOCSS to organize CSS"
-          ]
-        },
-        {
-          company: 'Galavantier',
-          date: '2011 - 2013',
-          desc: [
-            'built and translated UI designs to functional drupal theme using html, css, and responsive techniques.'
           ]
         }
       ],

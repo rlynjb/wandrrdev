@@ -3,6 +3,8 @@
     <v-app-bar
       fixed
       app
+      color="#121212"
+      elevation="0"
     >
       <v-container>
       <v-row no-gutters class="justify-space-between align-center">
@@ -74,7 +76,7 @@
     </v-main>
 
     <v-footer
-      :absolute="false"
+      :absolute="!false"
       app
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
@@ -90,7 +92,7 @@ export default {
       menu: [
         { name: 'About', url: '/#about' },
         { name: 'Experience', url: '/#experience' },
-        { name: 'Work', url: '/#work' },
+        /*{ name: 'Work', url: '/#work' },*/
         { name: 'Contact', url: '/#contact' },
         { name: 'Travel', url: '/travel_cheatsheet' }
       ],
@@ -99,11 +101,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 a {
   text-decoration: none;
 }
 .Header-logoText {
   line-height: 0.8;
+}
+
+.v-application .container {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Optima', sans-serif !important;
+  }
 }
 </style>
