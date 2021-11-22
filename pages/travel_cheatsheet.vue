@@ -57,7 +57,7 @@ export default {
           id: 'qwe123aqe123asd',
           area_name: 'Downtown Las Vegas', // area code/name
           name: 'the 211', // apt or airbnb or coliving.com, etc
-          price: '700 - 800',
+          price: '700',
           date_stayed: {
             from: '12-03-2021',
             to: '01-04-2022'
@@ -76,7 +76,6 @@ export default {
           },
           public_transit_desc: 'how much and where to buy a pass',
           nearby_essentials_desc: '',
-          tourist_area_desc: '',
           arrival: {
             from_airport: 'Uber from Raleigh airport cost around $40.',
             from_train: '',
@@ -86,7 +85,7 @@ export default {
           id: 'qwe123aasdasdqe123asd',
           area_name: 'Durham near Duke University', // area code/name
           name: 'my cuz apt', // apt or airbnb or coliving.com, etc
-          price: 'Free haha',
+          price: '500',
           date_stayed: {
             from: '11-17-2021',
             to: '12-03-2021'
@@ -104,9 +103,6 @@ export default {
             zip: '27705',
             country: 'US'
           },
-          public_transit_desc: 'hows the ride?',
-          nearby_essentials_desc: 'hows the walk?',
-          tourist_area_desc: '',
           arrival: {
             from: 'Raleigh airport',
             transport_mode: 'Uber',
@@ -114,16 +110,30 @@ export default {
           },
           daily_food_expense: [
             {
-              meal_type: 'bfast', // bfast, snack, dinner, lunch, #treatyoself, etc
-              avg_cost: '13',
+              meal_type: 'coffee', // bfast, snack, dinner, lunch, #treatyoself, etc
+              avg_cost: '8',
               frequency: 'daily', // 7 times a week
               // might need to redo this option to:
               // daily (7x/wk), occasional ( avg of 3x/wk ), rarely ( 1/wk )
             },
             {
-              meal_type: 'dinner', // bfast, snack, dinner, lunch, #treatyoself, etc
+              meal_type: 'whole foods', // bfast, snack, dinner, lunch, #treatyoself, etc
               avg_cost: '15',
               frequency: 'occasionally', // 7 times a week
+            }
+          ],
+          public_transit_pass: [
+            {
+              name: 'single ride metrocard',
+              cost: '2.50',
+              where_purchase: 'vending machines',
+              info_link: 'https://freetoursbyfoot.com/how-to-buy-a-new-york-city-subway-pass/'
+            },
+            {
+              name: '7-day metrocard',
+              cost: '29.00',
+              where_purchase: 'vending machines',
+              info_link: 'https://freetoursbyfoot.com/how-to-buy-a-new-york-city-subway-pass/'
             }
           ],
         },
