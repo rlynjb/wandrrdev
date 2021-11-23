@@ -1,9 +1,13 @@
 <template>
 <v-card flat id="boardingCard" class="grey--text text--lighten-5">
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
-    <boarding-card-text-field
+    <boarding-card-text-field v-if="boardItem"
       label="What's the area?"
       :value="boardItem.area_name"
+    />
+    <boarding-card-text-field v-else
+      label="What's the area?"
+      value=""
     />
   </v-card-title>
 
@@ -18,12 +22,13 @@
         expand-icon="mdi-bed"
         disable-icon-rotate>
         <h3 :class="panelHeaderStyle">
-          <span v-if="boardItem.date_stayed">Stayed</span>
+          <span v-if="boardItem && boardItem.date_stayed">Stayed</span>
           <span v-else>Stay</span>
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-stay :boardItem="boardItem"/>
+        <boarding-card-stay v-if="boardItem" :boardItem="boardItem" />
+        <boarding-card-stay v-else />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -127,6 +132,8 @@ export default {
       return this.$store.state.isUserAuthenticated;
     },
     foodWeeklyTotal() {
+      if (!this.boardItem) return;
+
       let determineFreqVal = (freq) => {
         switch(freq) {
           case "daily":
@@ -152,6 +159,7 @@ export default {
     */
 
     estimate_cost() {
+      if (!this.boardItem) return;
       if (!this.boardItem.daily_food_expense) return;
 
       let stayCost = !isNaN(this.boardItem.price) ? parseInt(this.boardItem.price) : 0;

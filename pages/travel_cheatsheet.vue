@@ -26,6 +26,10 @@
       :key="'board-'+boardIndex">
       <boarding-card :boardItem="boardItem" />
     </v-col>
+
+    <v-col cols="6" sm="12" md="6" lg="4" xl="4">
+      <boarding-card />
+    </v-col>
   </v-row>
 </div>
 </template>

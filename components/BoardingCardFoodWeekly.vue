@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <ul v-if="boardItem">
       <li v-for="(foodItem, foodIndex) in boardItem.daily_food_expense" :key="'foodExp-'+foodIndex">
         <boarding-card-text-field
           label="what kind of meal?"
@@ -21,26 +21,26 @@
         <span :class="labelStyle">but $</span>{{ foodWeeklyTotal[foodIndex] }}
         <span :class="labelStyle">weekly</span>
       </li>
-
-      <li>
-        <boarding-card-text-field
-          label="what kind of meal?"
-          value=""
-          class="d-inline-block"
-        />
-        <boarding-card-text-field
-          label="how frequent"
-          value=""
-          class="d-inline-block"
-        />
-        <span :class="labelStyle">cost around $</span>
-        <boarding-card-text-field
-          label="how much"
-          value=""
-          class="d-inline-block"
-        />
-      </li>
     </ul>
+
+    <div>
+      <boarding-card-text-field
+        label="what kind of meal?"
+        value=""
+        class="d-inline-block"
+      />
+      <boarding-card-text-field
+        label="how frequent"
+        value=""
+        class="d-inline-block"
+      />
+      <span :class="labelStyle">cost around $</span>
+      <boarding-card-text-field
+        label="how much"
+        value=""
+        class="d-inline-block"
+      />
+    </div>
   </div>
 </template>
 

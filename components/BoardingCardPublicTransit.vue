@@ -3,17 +3,17 @@
     <b :class="labelStyle">
       how to get pass and how much it cost
     </b>
-    <v-btn depressed
+    <v-btn v-if="boardItem" depressed
       @click="gotoGooglePublicTransit(boardItem.location.city, boardItem.location.state)">
       search for Transits
     </v-btn>
-    <v-btn depressed
+    <v-btn v-if="boardItem" depressed
       @click="gotoGooglePublicTransitMap(boardItem.location.city, boardItem.location.state)"
       class="mt-3 mb-3">
       search for map
     </v-btn>
     <br>
-    <ul>
+    <ul v-if="boardItem">
       <li v-for="(transitItem, transitIndex) in boardItem.public_transit_pass" 
         :key="'transitItem-'+transitIndex"
         class="mb-6">
@@ -60,33 +60,33 @@
           />
         </div>
       </li>
-
-      <li>
-        <boarding-card-text-field
-          label="What ride option?"
-          value=""
-          class="d-inline-block"
-        />
-        <span :class="labelStyle">cost $</span>
-        <boarding-card-text-field
-          label="How much?"
-          value=""
-          class="d-inline-block"
-        />
-        <span :class="labelStyle">and tickets are sold at </span>
-        <boarding-card-text-field
-          label="Where to buy?"
-          value=""
-          class="d-inline-block"
-        />
-        <br>
-        <boarding-card-text-field
-          label="enter link here"
-          value=""
-          class="d-inline-block"
-        />
-      </li>
     </ul>
+
+    <div>
+      <boarding-card-text-field
+        label="What ride option?"
+        value=""
+        class="d-inline-block"
+      />
+      <span :class="labelStyle">cost $</span>
+      <boarding-card-text-field
+        label="How much?"
+        value=""
+        class="d-inline-block"
+      />
+      <span :class="labelStyle">and tickets are sold at </span>
+      <boarding-card-text-field
+        label="Where to buy?"
+        value=""
+        class="d-inline-block"
+      />
+      <br>
+      <boarding-card-text-field
+        label="enter link here"
+        value=""
+        class="d-inline-block"
+      />
+    </div>
   </div>
 </template>
 

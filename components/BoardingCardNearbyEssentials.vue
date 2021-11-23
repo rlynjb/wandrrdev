@@ -51,6 +51,7 @@ export default {
 
   methods: {
     gotoGmap(category) {
+      if (!this.boardItem) return;
       if (!this.boardItem.location) return;
 
       let lat = this.boardItem.location.coordinates[0];
