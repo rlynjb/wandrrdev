@@ -1,7 +1,10 @@
 <template>
 <v-card flat id="boardingCard" class="grey--text text--lighten-5">
-  <v-card-title class="pl-7 pr-7 pb-4 primary--text">
-    {{ boardItem.area_name }}
+  <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
+    <boarding-card-text-field
+      label="What's the area?"
+      :value="boardItem.area_name"
+    />
   </v-card-title>
 
   <v-expansion-panels
@@ -20,15 +23,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <b :class="labelStyle">during:</b>
-        {{ formatDate(boardItem.date_stayed.from) }} 
-        <b :class="labelStyle">-</b> {{ formatDate(boardItem.date_stayed.to) }} <br>
-        <b :class="labelStyle">(0 days, 0 weeks, 0 months)</b><br>
-        <b :class="labelStyle">in:</b> {{ boardItem.name }} <br>
-        <b :class="labelStyle">it cost:</b> {{ boardItem.price }} <br>
-        <b :class="labelStyle">the place has:</b> {{ boardItem.amenities.join().replaceAll(',', ', ') }} <br>
-        <b :class="labelStyle">my room has:</b> {{ boardItem.included.join().replaceAll(',', ', ') }} <br>
-        <b :class="labelStyle">whats it like:</b> {{ boardItem.desc }}
+        <boarding-card-stay :boardItem="boardItem"/>
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -41,9 +36,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <span :class="labelStyle">from</span> {{ boardItem.arrival.from }}<span :class="labelStyle">,</span>
-        <span :class="labelStyle">took</span> {{ boardItem.arrival.transport_mode }} 
-        <span :class="labelStyle">and it cost around $</span>{{ boardItem.arrival.cost }}
+        <boarding-card-arrival :boardItem="boardItem" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -56,27 +49,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <b :class="labelStyle">
-          how to get pass and how much it cost
-        </b>
-        <v-btn @click="gotoGooglePublicTransit(boardItem.location.city, boardItem.location.state)">
-          View Transits
-        </v-btn>
-        <v-btn @click="gotoGooglePublicTransitMap(boardItem.location.city, boardItem.location.state)"
-          class="mt-3 mb-3">
-          view map
-        </v-btn>
-        <br>
-        <ul>
-          <li v-for="(transitItem, transitIndex) in boardItem.public_transit_pass" 
-            :key="'transitItem-'+transitIndex">
-            {{ transitItem.name }}
-            <span :class="labelStyle">cost $</span>{{ transitItem.cost }}
-            <span :class="labelStyle">and tickets are sold at </span>{{ transitItem.where_purchase }}
-            <br>
-            <a :href="transitItem.info_link" target="_blank">more info</a>
-          </li>
-        </ul>
+        <boarding-card-public-transit :boardItem="boardItem" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -89,37 +62,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <b :class="labelStyle">0.5miles radius within where i stayed</b><br>
-        <v-btn depressed
-          class="mt-3"
-          @click="gotoGmap('public_transit')">
-          public transits
-        </v-btn>
-        <v-btn depressed
-          class="mt-3"
-          @click="gotoGmap('cafes')">
-          cafes
-        </v-btn>
-        <v-btn depressed
-          class="mt-3"
-          @click="gotoGmap('groceries')">
-          groceries
-        </v-btn>
-        <v-btn depressed
-          class="mt-3"
-          @click="gotoGmap('laundry')">
-          laundry
-        </v-btn>
-        <v-btn depressed
-          class="mt-3"
-          @click="gotoGmap('bars')">
-          bars
-        </v-btn>
-        <v-btn depressed
-          class="mt-3"
-          @click="gotoGmap('restaurants')">
-          restaurants
-        </v-btn>
+        <boarding-card-nearby-essentials :boardItem="boardItem" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -132,14 +75,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <ul>
-          <li v-for="(foodItem, foodIndex) in boardItem.daily_food_expense" :key="'foodExp-'+foodIndex">
-            {{ foodItem.meal_type }} {{ foodItem.frequency }} 
-            <span :class="labelStyle">cost around $</span>{{ foodItem.avg_cost }} 
-            <span :class="labelStyle">but $</span>{{ foodWeeklyTotal[foodIndex] }}
-            <span :class="labelStyle">weekly</span>
-          </li>
-        </ul>
+        <boarding-card-food-weekly :boardItem="boardItem" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -162,9 +98,15 @@
 </template>
 
 <script>
-import moment from 'moment';
+import BoardingCardTextField from './BoardingCardTextField.vue';
+import BoardingCardStay from './BoardingCardStay.vue';
+import BoardingCardArrival from './BoardingCardArrival.vue';
+import BoardingCardPublicTransit from './BoardingCardPublicTransit.vue';
+import BoardingCardNearbyEssentials from './BoardingCardNearbyEssentials.vue';
+import BoardingCardFoodWeekly from './BoardingCardFoodWeekly.vue';
 
 export default {
+  components: { BoardingCardTextField, BoardingCardStay, BoardingCardArrival, BoardingCardPublicTransit, BoardingCardNearbyEssentials, BoardingCardFoodWeekly },
   props: {
     boardItem: {
       type: Object,
@@ -179,7 +121,11 @@ export default {
       defaultOpenPanels: [0, 5],
     }
   },
+
   computed: {
+    isUserAuthenticated() {
+      return this.$store.state.isUserAuthenticated;
+    },
     foodWeeklyTotal() {
       let determineFreqVal = (freq) => {
         switch(freq) {
@@ -216,36 +162,7 @@ export default {
   },
 
   methods: {
-    formatDate(date) {
-      return moment(date).format('ll');
-    },
-
-    gotoGmap(category) {
-      if (!this.boardItem.location) return;
-
-      let lat = this.boardItem.location.coordinates[0];
-      let long = this.boardItem.location.coordinates[1];
-
-      let cat = category.split('_').map((v, i) => {
-        if (i === category.split('_').length - 1) {
-          return v;
-        }
-        return v + '+';
-      }).join().replace(',','');
-
-      let googleMapUrlSearch = `https://www.google.com/maps/search/${cat}/@${lat},${long},16z`;
-      window.open(googleMapUrlSearch, '_blank');
-    },
-
-    gotoGooglePublicTransit(city, state) {
-      let googleUrlSearch = `https://www.google.com/search?q=public+transportation+in+${ city }+${ state }`;
-      window.open(googleUrlSearch, '_blank');
-    },
-
-    gotoGooglePublicTransitMap(city, state) {
-      let googleUrlSearch = `https://www.google.com/search?q=public+transportation+map+in+${ city }+${ state }`;
-      window.open(googleUrlSearch, '_blank');
-    },
+    //
   },
 }
 </script>
@@ -267,7 +184,27 @@ export default {
   }
   .v-expansion-panel-content {
     margin-top: 1.5em;
+    margin-bottom: 1.5em;
     color: #dadada;
+  }
+  .v-expansion-panel-content__wrap {
+    padding-bottom: 0;
+  }
+
+  // custom form styles per each section of boardCard
+  .v-card__title {
+    label, input {
+      color: #9575cd;
+      font-size: 1.25rem;
+    }
+  }
+  .v-expansion-panel-content {
+    textarea {
+      line-height: 1.5em;
+    }
+    .v-textarea.v-text-field--solo {
+      width: 100%;
+    }
   }
 }
 </style>

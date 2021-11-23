@@ -1,6 +1,15 @@
 <template>
 <div class="pt-10 pb-16">
-  <h2>Travel Cheatsheet</h2>
+  <h2 class="d-inline-block">Travel Cheatsheet</h2>
+  <v-btn icon
+    class="d-inline-block"
+    @click="addStay"
+  >
+    <v-icon>
+      mdi-plus-circle
+    </v-icon>
+  </v-btn>
+
   <v-row class="mt-3">
     <v-col>
       <b class="d-block d-sm-block d-md-block d-lg-block d-xl-block primary--text">
@@ -53,7 +62,7 @@ export default {
         }
       ],
       boardingPlace: [
-        {
+        /*{
           id: 'qwe123aqe123asd',
           area_name: 'Downtown Las Vegas', // area code/name
           name: 'the 211', // apt or airbnb or coliving.com, etc
@@ -80,7 +89,7 @@ export default {
             from_airport: 'Uber from Raleigh airport cost around $40.',
             from_train: '',
           },
-        },
+        },*/
         {
           id: 'qwe123aasdasdqe123asd',
           area_name: 'Durham near Duke University', // area code/name
@@ -92,8 +101,8 @@ export default {
           },
           //desc: 'during daytime/night time, how clean is it, whats the parking space like',
           desc: 'during daytime, not as busy. most residents are students. during night time, safe to walk. its a clean area.',
-          amenities: ['gym', 'free coffee on 1st floor'], // shared resources
-          included: ['electricity', 'utilities', 'basic cable', 'shared internet'], // whats included privately
+          amenities: "gym, free coffee on 1st floor", // shared resources
+          included: "electricity, utilities, basic cable, shared internet", // whats included privately
           website: '',
           location: {
             coordinates: [36.00723495286383, -78.92443993684024],
@@ -142,7 +151,9 @@ export default {
   },
 
   methods: {
-    //
+    addStay() {
+      //
+    },
   },
 }
 </script>
