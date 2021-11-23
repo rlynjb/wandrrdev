@@ -92,9 +92,9 @@ export default {
       menu: [
         { name: 'About', url: '/#about' },
         { name: 'Experience', url: '/#experience' },
-        /*{ name: 'Work', url: '/#work' },*/
+        { name: 'Work', url: '/#work' },
         { name: 'Contact', url: '/#contact' },
-        { name: 'Travel', url: '/travel_cheatsheet' }
+        /*{ name: 'Travel', url: '/travel_cheatsheet' }*/
       ],
     }
   }

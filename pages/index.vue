@@ -57,7 +57,7 @@
         </v-timeline-item>
       </v-timeline>
     </v-col>
-    <!--
+
     <v-col cols="12" id="work" class="pt-16 pb-16">
       <h3 class="primary--text mb-4">Some Things I've Built</h3>
       <v-row>
@@ -72,11 +72,10 @@
               {{ workItemSkills }}
             </li>
           </ul>
-          <v-btn>View</v-btn>
+          <NuxtLink :to="workItem.link">view</NuxtLink>
         </v-col>
       </v-row>
     </v-col>
-    -->
   </v-row>
 
   <v-row justify="center" align="center" class="pt-16 pb-16">
@@ -148,7 +147,7 @@ export default {
           img: 'http://placehold.it/300x200',
           desc: 'where i showcase my skills',
           technical_skills: ['vue.js', 'nuxt.js', 'static site'],
-          link: 'wandrr.dev'
+          link: '/travel_cheatsheet'
         }
       ],
     }
