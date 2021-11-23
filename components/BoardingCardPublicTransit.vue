@@ -60,6 +60,32 @@
           />
         </div>
       </li>
+
+      <li>
+        <boarding-card-text-field
+          label="What ride option?"
+          value=""
+          class="d-inline-block"
+        />
+        <span :class="labelStyle">cost $</span>
+        <boarding-card-text-field
+          label="How much?"
+          value=""
+          class="d-inline-block"
+        />
+        <span :class="labelStyle">and tickets are sold at </span>
+        <boarding-card-text-field
+          label="Where to buy?"
+          value=""
+          class="d-inline-block"
+        />
+        <br>
+        <boarding-card-text-field
+          label="enter link here"
+          value=""
+          class="d-inline-block"
+        />
+      </li>
     </ul>
   </div>
 </template>

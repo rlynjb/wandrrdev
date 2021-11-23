@@ -153,11 +153,15 @@ export default {
 
     estimate_cost() {
       if (!this.boardItem.daily_food_expense) return;
+
       let stayCost = !isNaN(this.boardItem.price) ? parseInt(this.boardItem.price) : 0;
       let arrivalTransit = parseInt(this.boardItem.arrival.cost);
       let foodTotal = this.foodWeeklyTotal.reduce((accumulator, a) => accumulator + a);
+      let publicTransitCost = this.boardItem.public_transit_pass.reduce((accumulator, a) => {
+        return parseInt(accumulator.cost) + parseInt(a.cost);
+      });
 
-      return stayCost + arrivalTransit + foodTotal;
+      return stayCost + arrivalTransit + publicTransitCost + foodTotal;
     },
   },
 

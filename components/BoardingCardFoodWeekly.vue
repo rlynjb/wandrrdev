@@ -21,6 +21,25 @@
         <span :class="labelStyle">but $</span>{{ foodWeeklyTotal[foodIndex] }}
         <span :class="labelStyle">weekly</span>
       </li>
+
+      <li>
+        <boarding-card-text-field
+          label="what kind of meal?"
+          value=""
+          class="d-inline-block"
+        />
+        <boarding-card-text-field
+          label="how frequent"
+          value=""
+          class="d-inline-block"
+        />
+        <span :class="labelStyle">cost around $</span>
+        <boarding-card-text-field
+          label="how much"
+          value=""
+          class="d-inline-block"
+        />
+      </li>
     </ul>
   </div>
 </template>

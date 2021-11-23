@@ -5,9 +5,6 @@
     class="d-inline-block"
     @click="addStay"
   >
-    <v-icon>
-      mdi-plus-circle
-    </v-icon>
   </v-btn>
 
   <v-row class="mt-3">
