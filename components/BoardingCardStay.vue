@@ -2,11 +2,31 @@
   <div>
     <b :class="labelStyle">during:</b>
     <div v-if="boardItem">
-      {{ formatDate(boardItem.date_stayed.from) }} 
-      <b :class="labelStyle">-</b> {{ formatDate(boardItem.date_stayed.to) }} <br>
+      <boarding-card-text-field
+        label="from: MM/DD/YYYY"
+        :value="formatDate(boardItem.date_stayed.from)"
+        class="d-inline-block"
+      />
+      <b :class="labelStyle">-</b>
+      <boarding-card-text-field
+        label="to: MM/DD/YYYY"
+        :value="formatDate(boardItem.date_stayed.to)"
+        class="d-inline-block"
+      />
+      <br>
     </div>
     <div v-else>
-      empty for now <br>
+      <boarding-card-text-field
+        label="from: MM/DD/YYYY"
+        value=""
+        class="d-inline-block"
+      />
+      <boarding-card-text-field
+        label="to: MM/DD/YYYY"
+        value=""
+        class="d-inline-block"
+      />
+      <br>
     </div>
     <b :class="labelStyle">(0 days, 0 weeks, 0 months)</b><br>
 
