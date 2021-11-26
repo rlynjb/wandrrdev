@@ -34,7 +34,7 @@
         expand-icon="mdi-bed"
         disable-icon-rotate>
         <h3 :class="panelHeaderStyle">
-          <span v-if="boardItem.date_stayed">Stayed</span>
+          <span>Stayed</span>
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
@@ -51,7 +51,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-arrival :boardItem="boardItem" />
+        <boarding-card-arrival :boardItem="boardCopy" :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -64,7 +64,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-public-transit :boardItem="boardItem" />
+        <boarding-card-public-transit :transits="boardCopy.transit" :boardItem="boardCopy.transit" :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -77,7 +77,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-nearby-essentials :boardItem="boardItem" />
+        <boarding-card-nearby-essentials :boardItem="boardCopy" :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -90,7 +90,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-food-weekly :boardItem="boardItem" />
+        <boarding-card-food-weekly :boardItem="boardCopy" :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -196,12 +196,14 @@ export default {
   created() {
     if ( JSON.stringify(this.boardCopy) === JSON.stringify(this.boardItem) ) return;
     this.boardCopy = JSON.parse( JSON.stringify( this.boardItem ) );
+    debugger
   },
 
   watch: {
     boardItem(newVal) {
       if ( JSON.stringify(this.boardCopy) != JSON.stringify(newVal) ) return;
       this.boardCopy = JSON.parse( JSON.stringify(newVal) );
+      debugger
     },
   },
 

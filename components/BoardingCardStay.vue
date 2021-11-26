@@ -4,16 +4,16 @@
     <div>
       <boarding-card-text-field
         label="from: MM/DD/YYYY"
-        name="date_stayed.from"
-        :value="boardCopy.date_stayed.from"
+        name="stayed_date_from"
+        :value="boardCopy.stayed_date_from"
         class="d-inline-block"
         @newvalue="updateBoardForm"
       />
       <b :class="labelStyle">-</b>
       <boarding-card-text-field
         label="to: MM/DD/YYYY"
-        name="date_stayed.to"
-        :value="boardCopy.date_stayed.to"
+        name="stayed_date_to"
+        :value="boardCopy.stayed_date_to"
         class="d-inline-block"
         @newvalue="updateBoardForm"
       />

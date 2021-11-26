@@ -52,35 +52,15 @@ export const mutations = {
   we might want to use some js-data module
   for implementing type, validation, parsing
 */
-const dateStayedSchema = {
-  from: "",
-  to: ""
-}
-
-const locationSchema = {
-  coordinates: [0, 0],
-  street_address: "",
-  city: "",
-  state: "",
-  zip: "",
-  country: ""
-}
-
-const arrivalSchema = {
-  from: "",
-  transport_mode: "",
-  cost: "",
-}
-
 const foodExpenseSchema = {
   meal_type: "", // bfast, snack, dinner, lunch, #treatyoself, etc
-  avg_cost: "",
+  cost: "",
   frequency: "", // 7 times a week
   // might need to redo this option to:
   // daily (7x/wk), occasional ( avg of 3x/wk ), rarely ( 1/wk )
 }
 
-const publicTransitPassSchema = {
+const transitSchema = {
   name: "",
   cost: "",
   where_purchase: "",
@@ -88,18 +68,23 @@ const publicTransitPassSchema = {
 }
 
 const boardSchema = {
-  area_name: "", // area code/name
-  name: "", // apt or airbnb or coliving.com, etc
+  area_name: "", // area code/name ex. Durham near Duke University
+  area_type: "", // ex. urban, downtown, burrough, suburbs
+  area_coordinates: [],
+  area_address: "", // full address
+  name: "", // ex. apt complex or airbnb or coliving.com, etc
   price: "",
-  date_stayed: dateStayedSchema,
+  stayed_date_from: "",
+  stayed_date_to: "",
   desc: "",
   amenities: "", // shared resources
   included: "", // whats included privately
-  website: "",
-  location: locationSchema,
-  arrival: arrivalSchema,
+  website: "", // if there is
+  arrival_from: "",
+  arrival_transport: "",
+  arrival_cost: "",
   food_expense: [], // foodExpenseSchema
-  public_transit_pass: [] // publicTransitPassSchema
+  transit: [] // transitSchema
 }
 
 export const actions = {
@@ -114,6 +99,15 @@ export const actions = {
     const newBoardPostRef = push(boardsRef);
 
     return set(newBoardPostRef, boardSchema);
+  },
+
+  postBoardTransit({ commit }, { id, key, value }) {
+    transitSchema[key] = value;
+
+    const boardTransitRef = ref(database, "boards/" + id + "/transit");
+    const newBoardTransitPostRef = push(boardTransitRef);
+
+    return set(newBoardTransitPostRef, transitSchema);
   },
 
   updateBoard({ commit }, { id, key, value }) {
@@ -134,6 +128,11 @@ export const actions = {
     remove(boardsRef)
   },
 
+  deleteBoardTransit({ dispatch }, { boardID, transitID }) {
+    const boardTransitRef = ref(database, "boards/" + boardID + "/transit/" + transitID);
+    remove(boardTransitRef);
+  },
+
   getBoards({ commit }) {
     /*
       NOTE:
@@ -151,6 +150,7 @@ export const actions = {
 
         if (data) {
           commit('setBoards', data);
+          debugger
           resolve(data);
           return;
         }
