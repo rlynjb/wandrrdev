@@ -1,11 +1,6 @@
 <template>
 <div class="pt-10 pb-16">
   <h2 class="d-inline-block">Travel Cheatsheet</h2>
-  <v-btn icon
-    class="d-inline-block"
-    @click="addStay"
-  >
-  </v-btn>
 
   <v-row class="mt-3">
     <v-col>
@@ -22,9 +17,9 @@
 
   <v-row>
     <v-col cols="6" sm="12" md="6" lg="4" xl="4"
-      v-for="(boardItem, boardIndex) in boardingPlace"
+      v-for="(board, boardID, boardIndex) in boards"
       :key="'board-'+boardIndex">
-      <boarding-card :boardItem="boardItem" />
+      <boarding-card :boardItem="board" :boardId="boardID" />
     </v-col>
 
     <v-col cols="6" sm="12" md="6" lg="4" xl="4">
@@ -151,10 +146,21 @@ export default {
     }
   },
 
-  methods: {
-    addStay() {
-      //
+  computed: {
+    boards() {
+      return this.$store.state.boards;
     },
+  },
+
+  created() {
+    this.$store.dispatch('getBoards')
+      .catch(err => {
+        /*
+          if boards collection is empty, set
+          some kind of sign here
+        */
+        console.log(err)
+      });
   },
 }
 </script>

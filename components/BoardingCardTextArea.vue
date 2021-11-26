@@ -3,7 +3,7 @@
     :readonly="!isUserAuthenticated"
     :placeholder="label"
     solo flat filled auto-grow
-    :value="value"
+    v-model="valueCopy"
     :class="classNames"
     rows="1"
   ></v-textarea>
@@ -16,6 +16,10 @@ export default {
       type: String,
       default:() => ''
     },
+    name: {
+      type: String,
+      default:() => ''
+    },
     value: {
       type: String,
       default:() => ''
@@ -25,16 +29,45 @@ export default {
       default:() => ''
     },
   },
+
   data:() => {
     return {
-      //
+      valueCopy: '',
     }
+  },
+
+  created() {
+    this.valueCopy = JSON.parse( JSON.stringify(this.value) );
+  },
+
+  watch: {
+    value(newVal) {
+      this.valueCopy = JSON.parse( JSON.stringify( newVal ) );
+    },
+
+    valueCopy: {
+      handler(newVal) {
+        if (newVal === "") return;
+
+        this.$emit('newvalue', {
+          name: this.name,
+          value: this.valueCopy
+        });
+      },
+      deep: true,
+    },
   },
 
   computed: {
     isUserAuthenticated() {
       return this.$store.state.isUserAuthenticated;
     },
+  },
+
+  methods: {
+    clear() {
+      this.valueCopy = "";
+    }
   },
 }
 </script>

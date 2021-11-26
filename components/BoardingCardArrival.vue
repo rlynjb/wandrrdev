@@ -52,6 +52,13 @@ export default {
   data: () => {
     return {
       labelStyle: 'text-body-2 grey--text',
+      form: {
+        arrival: {
+          from: '',
+          transport_mode: '',
+          cost: '',
+        },
+      },
     }
   },
 

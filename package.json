@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "core-js": "^3.15.1",
+    "firebase": "^9.5.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "nuxt": "^2.15.7",
+    "schm": "^0.4.1",
+    "uuid": "^8.3.2",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {

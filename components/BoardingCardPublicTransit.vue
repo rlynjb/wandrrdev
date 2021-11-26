@@ -103,6 +103,20 @@ export default {
     return {
       transitLink: null,
       labelStyle: 'text-body-2 grey--text',
+      location: {
+        coordinates: [36.00723495286383, -78.92443993684024],
+        street_address: '',
+        city: '',
+        state: '',
+        zip: '',
+        country: ''
+      },
+      public_transit_pass: {
+        name: "",
+        cost: "",
+        where_purchase: "",
+        info_link: ""
+      }
     }
   },
 

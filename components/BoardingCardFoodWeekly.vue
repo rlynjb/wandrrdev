@@ -60,6 +60,13 @@ export default {
   data: () => {
     return {
       labelStyle: 'text-body-2 grey--text',
+      form: {
+        meal_type: "", // bfast, snack, dinner, lunch, #treatyoself, etc
+        avg_cost: "",
+        frequency: "", // 7 times a week
+        // might need to redo this option to:
+        // daily (7x/wk), occasional ( avg of 3x/wk ), rarely ( 1/wk )
+      },
     }
   },
 

@@ -1,17 +1,29 @@
 <template>
 <v-card flat id="boardingCard" class="grey--text text--lighten-5">
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
-    <boarding-card-text-field v-if="boardItem"
+    <boarding-card-text-field v-if="boardCopy"
       label="What's the area?"
-      :value="boardItem.area_name"
+      name="area_name"
+      :value="boardCopy.area_name"
+      @newvalue="updateBoardForm"
     />
     <boarding-card-text-field v-else
       label="What's the area?"
-      value=""
+      name="area_name"
+      :value="form.area_name"
+      @newvalue="postBoardForm"
+      ref="area_name"
     />
+
+    <v-btn v-if="boardCopy" @click="deleteBoard"
+      depressed
+    >
+      x
+    </v-btn>
   </v-card-title>
 
   <v-expansion-panels
+    v-if="boardCopy"
     flat
     focusable
     multiple
@@ -22,13 +34,11 @@
         expand-icon="mdi-bed"
         disable-icon-rotate>
         <h3 :class="panelHeaderStyle">
-          <span v-if="boardItem && boardItem.date_stayed">Stayed</span>
-          <span v-else>Stay</span>
+          <span v-if="boardItem.date_stayed">Stayed</span>
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-stay v-if="boardItem" :boardItem="boardItem" />
-        <boarding-card-stay v-else />
+        <boarding-card-stay :boardItem="boardCopy" :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -110,6 +120,8 @@ import BoardingCardPublicTransit from './BoardingCardPublicTransit.vue';
 import BoardingCardNearbyEssentials from './BoardingCardNearbyEssentials.vue';
 import BoardingCardFoodWeekly from './BoardingCardFoodWeekly.vue';
 
+import _ from 'lodash';
+
 export default {
   components: { BoardingCardTextField, BoardingCardStay, BoardingCardArrival, BoardingCardPublicTransit, BoardingCardNearbyEssentials, BoardingCardFoodWeekly },
   props: {
@@ -118,12 +130,20 @@ export default {
       required: false,
       default: () => null,
     },
+    boardId: {
+      type: String,
+    },
   },
+
   data: () => {
     return {
       labelStyle: 'text-body-2 grey--text',
       panelHeaderStyle: 'text-overline grey--text text--darken-1 primary--text font-weight-bold',
       defaultOpenPanels: [0, 5],
+      form: {
+        area_name: '',
+      },
+      boardCopy: null,
     }
   },
 
@@ -173,8 +193,53 @@ export default {
     },
   },
 
+  created() {
+    if ( JSON.stringify(this.boardCopy) === JSON.stringify(this.boardItem) ) return;
+    this.boardCopy = JSON.parse( JSON.stringify( this.boardItem ) );
+  },
+
+  watch: {
+    boardItem(newVal) {
+      if ( JSON.stringify(this.boardCopy) != JSON.stringify(newVal) ) return;
+      this.boardCopy = JSON.parse( JSON.stringify(newVal) );
+    },
+  },
+
   methods: {
-    //
+    updateBoardForm: _.debounce(function(val) {
+      if (!this.boardCopy) return;
+      // make sure values aren't the same, else, its going to override with an empty value
+      if (this.boardCopy[val.name] === val.value) return;
+
+      this.$store.dispatch('updateBoard', {
+        id: this.boardId,
+        key: val.name,
+        value: val.value
+      })
+      .then(() => {
+        console.log('UPDATE SUCCESS')
+      })
+      .catch(err => {
+        console.log('ERR', err)
+      });
+    }, 1000),
+
+    postBoardForm: _.debounce(function(val) {
+      this.$store.dispatch('postBoard', {
+        key: val.name,
+        value: val.value
+      })
+      .then(() => {
+        this.$refs.area_name.clear();
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    }, 1000),
+
+    deleteBoard() {
+      this.$store.dispatch('deleteBoard', this.boardId);
+    },
   },
 }
 </script>

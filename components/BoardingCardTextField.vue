@@ -3,7 +3,7 @@
     :readonly="!isUserAuthenticated"
     :label="label"
     solo flat filled
-    :value="value"
+    v-model="valueCopy"
     :class="classNames"
   ></v-text-field>
 </template>
@@ -12,6 +12,10 @@
 export default {
   props: {
     label: {
+      type: String,
+      default:() => ''
+    },
+    name: {
       type: String,
       default:() => ''
     },
@@ -27,14 +31,42 @@ export default {
 
   data:() => {
     return {
-      //
+      valueCopy: '',
     }
+  },
+
+  created() {
+    this.valueCopy = JSON.parse( JSON.stringify(this.value) );
+  },
+
+  watch: {
+    value(newVal) {
+      this.valueCopy = JSON.parse( JSON.stringify( newVal ) );
+    },
+
+    valueCopy: {
+      handler(newVal) {
+        if (newVal === "") return;
+
+        this.$emit('newvalue', {
+          name: this.name,
+          value: this.valueCopy
+        });
+      },
+      deep: true,
+    },
   },
 
   computed: {
     isUserAuthenticated() {
       return this.$store.state.isUserAuthenticated;
     },
+  },
+
+  methods: {
+    clear() {
+      this.valueCopy = "";
+    }
   },
 }
 </script>
