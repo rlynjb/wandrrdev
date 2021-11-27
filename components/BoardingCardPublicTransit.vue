@@ -24,20 +24,26 @@
         </v-btn>
         <boarding-card-text-field
           label="What ride option?"
+          name="name"
           :value="transit.name"
           class="d-inline-block"
+          @newvalue="updateBoardTransit($event, transitKey)"
         />
         <span :class="labelStyle">cost $</span>
         <boarding-card-text-field
           label="How much?"
+          name="cost"
           :value="transit.cost"
           class="d-inline-block"
+          @newvalue="updateBoardTransit($event, transitKey)"
         />
         <span :class="labelStyle">and tickets are sold at </span>
         <boarding-card-text-field
           label="Where to buy?"
+          name="where_purchase"
           :value="transit.where_purchase"
           class="d-inline-block"
+          @newvalue="updateBoardTransit($event, transitKey)"
         />
         <br>
 
@@ -60,8 +66,10 @@
         <div v-if="transitLink === 'transit-'+transitIndex">
           <boarding-card-text-field
             label="enter link here"
+            name="info_link"
             :value="transit.info_link"
             class="d-inline-block"
+            @newvalue="updateBoardTransit($event, transitKey)"
           />
         </div>
       </li>
@@ -124,15 +132,16 @@ export default {
       });
     }, 1000),
 
-    updateBoardForm: _.debounce(function(val) {
+    updateBoardTransit: _.debounce(function($event, transitID) {
       if (!this.board) return;
       // make sure values aren't the same, else, its going to override with an empty value
-      if (this.board[val.name] === val.value) return;
+      if (this.transits[transitID][$event.name] === $event.value) return;
 
-      this.$store.dispatch('updateBoard', {
-        id: this.boardID,
-        key: val.name,
-        value: val.value
+      this.$store.dispatch('updateBoardTransit', {
+        boardID: this.boardID,
+        transitID,
+        key: $event.name,
+        value: $event.value
       })
       .then(() => {
         console.log('UPDATE SUCCESS')

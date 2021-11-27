@@ -152,6 +152,14 @@ export const actions = {
     return set(newBoardTransitPostRef, transitSchema);
   },
 
+  updateBoardTransit({ commit }, { boardID, transitID, key, value }) {
+    const boardTransitRef = ref(database, "boards/" + boardID + "/transit/" + transitID);
+
+    return update(boardTransitRef, {
+      [key]: value
+    });
+  },
+
   deleteBoardTransit({ dispatch }, { boardID, transitID }) {
     const boardTransitRef = ref(database, "boards/" + boardID + "/transit/" + transitID);
     remove(boardTransitRef);
