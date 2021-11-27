@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ul v-if="boardItem">
-      <li v-for="(foodItem, foodIndex) in boardItem.food_expense" :key="'foodExp-'+foodIndex">
+    <ul v-if="board">
+      <li v-for="(foodItem, foodIndex) in board.food_expense" :key="'foodExp-'+foodIndex">
         <boarding-card-text-field
           label="what kind of meal?"
           name="meal_type"
@@ -48,13 +48,12 @@
 <script>
 export default {
   props: {
-    boardItem: {
-      type: Object,
-      default: () => null,
-    },
     foodWeeklyTotal: {
       type: Array,
       default: () => [],
+    },
+    boardID: {
+      type: String,
     },
   },
 
@@ -68,6 +67,12 @@ export default {
         // might need to redo this option to:
         // daily (7x/wk), occasional ( avg of 3x/wk ), rarely ( 1/wk )
       },
+    }
+  },
+
+  computed: {
+    board() {
+      return this.$store.state.boards[this.boardID];
     }
   },
 

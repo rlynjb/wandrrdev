@@ -1,11 +1,11 @@
 <template>
-  <div v-if="boardCopy">
+  <div v-if="board">
     <b :class="labelStyle">during:</b>
     <div>
       <boarding-card-text-field
         label="from: MM/DD/YYYY"
         name="stayed_date_from"
-        :value="boardCopy.stayed_date_from"
+        :value="board.stayed_date_from"
         class="d-inline-block"
         @newvalue="updateBoardForm"
       />
@@ -13,7 +13,7 @@
       <boarding-card-text-field
         label="to: MM/DD/YYYY"
         name="stayed_date_to"
-        :value="boardCopy.stayed_date_to"
+        :value="board.stayed_date_to"
         class="d-inline-block"
         @newvalue="updateBoardForm"
       />
@@ -25,7 +25,7 @@
     <boarding-card-text-field
       label="What's the name?"
       name="name"
-      :value="boardCopy.name"
+      :value="board.name"
       class="d-inline-block"
       @newvalue="updateBoardForm"
     />
@@ -35,7 +35,7 @@
     <boarding-card-text-field
       label="What's price range?"
       name="price"
-      :value="boardCopy.price"
+      :value="board.price"
       class="d-inline-block"
       @newvalue="updateBoardForm"
     />
@@ -45,7 +45,7 @@
     <boarding-card-text-area
       label="what's the building amenities?"
       name="amenities"
-      :value="boardCopy.amenities"
+      :value="board.amenities"
       class="d-inline-block"
       @newvalue="updateBoardForm"
     />
@@ -54,7 +54,7 @@
     <boarding-card-text-area
       label="what's in your room?"
       name="included"
-      :value="boardCopy.included"
+      :value="board.included"
       class="d-inline-block"
       @newvalue="updateBoardForm"
     />
@@ -63,7 +63,7 @@
     <boarding-card-text-area
       label="what's it like day time?, night time? How's the walk? Is it clean?"
       name="desc"
-      :value="boardCopy.desc"
+      :value="board.desc"
       class="d-inline-block"
       @newvalue="updateBoardForm"
     />
@@ -77,10 +77,6 @@ import _ from 'lodash';
 
 export default {
   props: {
-    boardItem: {
-      type: Object,
-      default: () => null,
-    },
     boardID: {
       type: String,
     },
@@ -89,27 +85,20 @@ export default {
   data: () => {
     return {
       labelStyle: 'text-body-2 grey--text',
-      boardCopy: null,
     }
   },
 
-  created() {
-    if ( JSON.stringify(this.boardCopy) === JSON.stringify(this.boardItem) ) return;
-    this.boardCopy = JSON.parse( JSON.stringify( this.boardItem ) );
-  },
-
-  watch: {
-    boardItem(newVal) {
-      if ( JSON.stringify(this.boardCopy) != JSON.stringify(newVal) ) return;
-      this.boardCopy = JSON.parse( JSON.stringify(newVal) );
+  computed: {
+    board() {
+      return this.$store.state.boards[this.boardID];
     },
   },
 
   methods: {
     updateBoardForm: _.debounce(function(val) {
-      if (!this.boardCopy) return;
+      if (!this.board) return;
       // make sure values aren't the same, else, its going to override with an empty value
-      if (this.boardCopy[val.name] === val.value) return;
+      if (this.board[val.name] === val.value) return;
 
       this.$store.dispatch('updateBoard', {
         id: this.boardID,

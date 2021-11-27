@@ -1,14 +1,14 @@
 <template>
-  <div v-if="boardCopy">
+  <div v-if="board">
     <b :class="labelStyle">
       how to get pass and how much it cost
     </b>
     <v-btn depressed
-      @click="gotoGooglePublicTransit(boardCopy.area_address, boardCopy.area_address)">
+      @click="gotoGooglePublicTransit(board.area_address, board.area_address)">
       search for Transits
     </v-btn>
     <v-btn depressed
-      @click="gotoGooglePublicTransitMap(boardCopy.area_address, boardCopy.area_address)"
+      @click="gotoGooglePublicTransitMap(board.area_address, board.area_address)"
       class="mt-3 mb-3">
       search for map
     </v-btn>
@@ -16,39 +16,39 @@
     <br>
 
     <ul>
-      <li v-for="(transitItem, transitKey, transitIndex) in transitsCopy" 
-        :key="'transitItem-'+transitIndex"
+      <li v-for="(transit, transitKey, transitIndex) in transits" 
+        :key="'transit-'+transitIndex"
         class="mb-6">
         <v-btn @click="deleteBoardTransit(transitKey)">
           x
         </v-btn>
         <boarding-card-text-field
           label="What ride option?"
-          :value="transitItem.name"
+          :value="transit.name"
           class="d-inline-block"
         />
         <span :class="labelStyle">cost $</span>
         <boarding-card-text-field
           label="How much?"
-          :value="transitItem.cost"
+          :value="transit.cost"
           class="d-inline-block"
         />
         <span :class="labelStyle">and tickets are sold at </span>
         <boarding-card-text-field
           label="Where to buy?"
-          :value="transitItem.where_purchase"
+          :value="transit.where_purchase"
           class="d-inline-block"
         />
         <br>
 
-        <a :href="transitItem.info_link" target="_blank">more info</a>
-        <v-btn v-if="transitLink != 'transitItem-'+transitIndex"
-          @click="() => transitLink = 'transitItem-'+transitIndex" icon>
+        <a :href="transit.info_link" target="_blank">more info</a>
+        <v-btn v-if="transitLink != 'transit-'+transitIndex"
+          @click="() => transitLink = 'transit-'+transitIndex" icon>
           <v-icon small color="grey">
             mdi-pencil
           </v-icon>
         </v-btn>
-        <v-btn v-if="transitLink === 'transitItem-'+transitIndex"
+        <v-btn v-if="transitLink === 'transit-'+transitIndex"
           @click="() => transitLink = null" icon>
           <v-icon small color="grey">
             mdi-close
@@ -57,10 +57,10 @@
 
         <br>
 
-        <div v-if="transitLink === 'transitItem-'+transitIndex">
+        <div v-if="transitLink === 'transit-'+transitIndex">
           <boarding-card-text-field
             label="enter link here"
-            :value="transitItem.info_link"
+            :value="transit.info_link"
             class="d-inline-block"
           />
         </div>
@@ -85,14 +85,6 @@ import _ from 'lodash';
 
 export default {
   props: {
-    boardItem: {
-      type: Object,
-      default: () => null,
-    },
-    transits: {
-      type: Object,
-      default: () => null,
-    },
     boardID: {
       type: String,
     },
@@ -102,41 +94,18 @@ export default {
     return {
       transitLink: null,
       labelStyle: 'text-body-2 grey--text',
-      boardCopy: null,
-      transitsCopy: null,
       form: {
         name: ""
       }
     }
   },
 
-  created() {
-    if ( JSON.stringify(this.boardCopy) === JSON.stringify(this.boardItem) ) return;
-    this.boardCopy = JSON.parse( JSON.stringify( this.boardItem ) );
-
-    if ( JSON.stringify(this.transitsCopy) === JSON.stringify(this.transits) ) return;
-    this.transitsCopy = JSON.parse( JSON.stringify( this.transits ) );
-    debugger
-  },
-
-  watch: {
-    "boardItem": {
-      handler(newVal) {
-        if ( JSON.stringify(this.boardCopy) != JSON.stringify(newVal) ) return;
-        this.boardCopy = JSON.parse( JSON.stringify(newVal) );
-        debugger
-      },
-      deep: true,
+  computed: {
+    board() {
+      return this.$store.state.boards[this.boardID];
     },
-
-    "transits": {
-      handler(newVal) {
-        debugger
-        if ( JSON.stringify(this.transitsCopy) != JSON.stringify(newVal) ) return;
-        this.transitsCopy = JSON.parse( JSON.stringify(newVal) );
-        debugger
-      },
-      deep: true,
+    transits() {
+      return this.$store.state.boards[this.boardID].transit;
     }
   },
 
@@ -156,9 +125,9 @@ export default {
     }, 1000),
 
     updateBoardForm: _.debounce(function(val) {
-      if (!this.boardCopy) return;
+      if (!this.board) return;
       // make sure values aren't the same, else, its going to override with an empty value
-      if (this.boardCopy[val.name] === val.value) return;
+      if (this.board[val.name] === val.value) return;
 
       this.$store.dispatch('updateBoard', {
         id: this.boardID,

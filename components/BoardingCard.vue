@@ -38,7 +38,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-stay :boardItem="boardCopy" :boardID="boardId" />
+        <boarding-card-stay :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -51,7 +51,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-arrival :boardItem="boardCopy" :boardID="boardId" />
+        <boarding-card-arrival :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -64,7 +64,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-public-transit :transits="boardCopy.transit" :boardItem="boardCopy.transit" :boardID="boardId" />
+        <boarding-card-public-transit :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -77,7 +77,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-nearby-essentials :boardItem="boardCopy" :boardID="boardId" />
+        <boarding-card-nearby-essentials :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -90,7 +90,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-food-weekly :boardItem="boardCopy" :boardID="boardId" />
+        <boarding-card-food-weekly :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -196,14 +196,12 @@ export default {
   created() {
     if ( JSON.stringify(this.boardCopy) === JSON.stringify(this.boardItem) ) return;
     this.boardCopy = JSON.parse( JSON.stringify( this.boardItem ) );
-    debugger
   },
 
   watch: {
     boardItem(newVal) {
       if ( JSON.stringify(this.boardCopy) != JSON.stringify(newVal) ) return;
       this.boardCopy = JSON.parse( JSON.stringify(newVal) );
-      debugger
     },
   },
 

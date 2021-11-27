@@ -37,10 +37,9 @@
 <script>
 export default {
   props: {
-    boardItem: {
-      type: Object,
-      default: () => null,
-    }
+    boardID: {
+      type: String,
+    },
   },
 
   data: () => {
@@ -49,13 +48,19 @@ export default {
     }
   },
 
+  computed: {
+    board() {
+      return this.$store.state.boards[this.boardID];
+    },
+  },
+
   methods: {
     gotoGmap(category) {
-      if (!this.boardItem) return;
-      if (!this.boardItem.location) return;
+      if (!this.board) return;
+      if (!this.board.location) return;
 
-      let lat = this.boardItem.location.coordinates[0];
-      let long = this.boardItem.location.coordinates[1];
+      let lat = this.board.location.coordinates[0];
+      let long = this.board.location.coordinates[1];
 
       let cat = category.split('_').map((v, i) => {
         if (i === category.split('_').length - 1) {

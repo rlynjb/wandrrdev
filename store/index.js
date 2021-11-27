@@ -6,7 +6,8 @@ import {
   push,
   update,
   remove,
-  onValue
+  onValue,
+  onChildAdded,
 } from "firebase/database";
 
 // https://github.com/diegohaz/schm
@@ -101,15 +102,6 @@ export const actions = {
     return set(newBoardPostRef, boardSchema);
   },
 
-  postBoardTransit({ commit }, { id, key, value }) {
-    transitSchema[key] = value;
-
-    const boardTransitRef = ref(database, "boards/" + id + "/transit");
-    const newBoardTransitPostRef = push(boardTransitRef);
-
-    return set(newBoardTransitPostRef, transitSchema);
-  },
-
   updateBoard({ commit }, { id, key, value }) {
     const boardsRef = ref(database, "boards/" + id);
 
@@ -128,11 +120,6 @@ export const actions = {
     remove(boardsRef)
   },
 
-  deleteBoardTransit({ dispatch }, { boardID, transitID }) {
-    const boardTransitRef = ref(database, "boards/" + boardID + "/transit/" + transitID);
-    remove(boardTransitRef);
-  },
-
   getBoards({ commit }) {
     /*
       NOTE:
@@ -145,17 +132,28 @@ export const actions = {
     return new Promise((resolve, reject) => {
       const boardsRef = ref(database, 'boards');
 
-      onValue(boardsRef, (snapshot) => {
-        const data = snapshot.val();
-
+      onValue(boardsRef, (data) => {
         if (data) {
-          commit('setBoards', data);
-          debugger
-          resolve(data);
+          commit('setBoards', data.val());
+          resolve(data.val());
           return;
         }
         reject(null);
       });
     });
+  },
+
+  postBoardTransit({ commit }, { id, key, value }) {
+    transitSchema[key] = value;
+
+    const boardTransitRef = ref(database, "boards/" + id + "/transit");
+    const newBoardTransitPostRef = push(boardTransitRef);
+
+    return set(newBoardTransitPostRef, transitSchema);
+  },
+
+  deleteBoardTransit({ dispatch }, { boardID, transitID }) {
+    const boardTransitRef = ref(database, "boards/" + boardID + "/transit/" + transitID);
+    remove(boardTransitRef);
   },
 }
