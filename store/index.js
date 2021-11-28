@@ -7,7 +7,6 @@ import {
   update,
   remove,
   onValue,
-  onChildAdded,
 } from "firebase/database";
 
 // https://github.com/diegohaz/schm
@@ -53,13 +52,6 @@ export const mutations = {
   we might want to use some js-data module
   for implementing type, validation, parsing
 */
-const foodExpenseSchema = {
-  meal_type: "", // bfast, snack, dinner, lunch, #treatyoself, etc
-  cost: "",
-  frequency: "", // 7 times a week
-  // might need to redo this option to:
-  // daily (7x/wk), occasional ( avg of 3x/wk ), rarely ( 1/wk )
-}
 
 const transitSchema = {
   name: "",
@@ -71,7 +63,7 @@ const transitSchema = {
 const boardSchema = {
   area_name: "", // area code/name ex. Durham near Duke University
   area_type: "", // ex. urban, downtown, burrough, suburbs
-  area_coordinates: [],
+  area_coordinates: "",
   area_address: "", // full address
   name: "", // ex. apt complex or airbnb or coliving.com, etc
   price: "",
@@ -84,8 +76,7 @@ const boardSchema = {
   arrival_from: "",
   arrival_transport: "",
   arrival_cost: "",
-  food_expense: [], // foodExpenseSchema
-  transit: [] // transitSchema
+  transit: {} // transitSchema
 }
 
 export const actions = {

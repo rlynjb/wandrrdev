@@ -52,7 +52,7 @@
           />
           <br>
 
-          <form-toggle>
+          <form-toggle icon="mdi-pencil">
             <template v-slot:field>
               <a :href="transit.info_link" target="_blank">more info</a>
             </template>

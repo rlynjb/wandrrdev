@@ -1,5 +1,5 @@
 <template>
-<v-card v-if="boardCopy" flat id="boardingCard" class="grey--text text--lighten-5">
+<v-card v-if="board" flat id="boardingCard" class="grey--text text--lighten-5">
   <v-btn @click="deleteBoard"
     depressed
     class="float-right"
@@ -9,31 +9,53 @@
   </v-btn>
 
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
-    <boarding-card-text-field 
-      label="What's the area?"
-      name="area_name"
-      :value="boardCopy.area_name"
-      @newvalue="updateBoardForm"
-    />
+    <v-col cols="12" class="pa-0">
+      <boarding-card-text-field
+        label="What's the area?"
+        name="area_name"
+        :value="board.area_name"
+        @newvalue="updateBoardForm"
+      />
+    </v-col>
 
-    <div class="d-block">
-      <v-btn icon>
-        <v-icon>
-          mdi-crosshairs-gps
-        </v-icon>
-      </v-btn>
+    <v-col cols="12" class="location-container pl-0 pr-0 pt-2 pb-0">
+      <form-toggle icon="mdi-map-marker">
+        <template v-slot:field>
+          at {{ board.area_address }}
+        </template>
+        <template v-slot:form>
+          <boarding-card-text-field
+            label="address: street, city, state, country, zipcode"
+            name="area_address"
+            :value="board.area_address"
+            class="d-inline-block"
+            @newvalue="updateBoardForm"
+          />
+          <boarding-card-text-field
+            label="coordinates: lat, long"
+            name="area_coordinates"
+            :value="board.area_coordinates"
+            class="d-inline-block"
+            @newvalue="updateBoardForm"
+          />
+        </template>
+      </form-toggle>
 
-      <v-btn icon>
-        <v-icon>
-          mdi-map-marker
-        </v-icon>
-      </v-btn>
-      <!--
-        area_type: "", // ex. urban, downtown, burrough, suburbs
-        area_coordinates: [],
-        area_address:
-        -->
-    </div>
+      <form-toggle icon="mdi-domain" class="pt-2">
+        <template v-slot:field>
+          and its {{ board.area_type }} type of neighborhood
+        </template>
+        <template v-slot:form>
+          <boarding-card-text-field
+            label="type: urban, downtown, burrough, suburbs"
+            name="area_type"
+            :value="board.area_type"
+            class="d-inline-block"
+            @newvalue="updateBoardForm"
+          />
+        </template>
+      </form-toggle>
+    </v-col>
   </v-card-title>
 
   <v-expansion-panels
@@ -51,7 +73,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-stay :boardID="boardId" />
+        <boarding-card-stay :boardID="boardID" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -64,7 +86,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-arrival :boardID="boardId" />
+        <boarding-card-arrival :boardID="boardID" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -77,7 +99,7 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-public-transit :boardID="boardId" />
+        <boarding-card-public-transit :boardID="boardID" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -90,24 +112,10 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <boarding-card-nearby-essentials :boardID="boardId" />
+        <boarding-card-nearby-essentials :boardID="boardID" />
       </v-expansion-panel-content>
     </v-expansion-panel>
 
-<!--
-    <v-expansion-panel>
-      <v-expansion-panel-header
-        expand-icon="mdi-currency-usd"
-        disable-icon-rotate>
-        <h3 :class="panelHeaderStyle">
-          Weekly Food Expense
-        </h3>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <boarding-card-food-weekly :boardID="boardId" />
-      </v-expansion-panel-content>
-    </v-expansion-panel>
--->
     <v-expansion-panel>
       <v-expansion-panel-header
         expand-icon="mdi-align-vertical-bottom"
@@ -117,12 +125,13 @@
         </h3>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <b :class="labelStyle">includes *stay, *arrival transit, *public transit pass, *food expense only</b><br>
+        <b :class="labelStyle">includes *stay, *arrival transit, *public transit pass</b><br>
+        <!--
         ${{ estimate_cost }}
+        -->
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
-
 </v-card>
 </template>
 
@@ -132,19 +141,13 @@ import BoardingCardStay from './BoardingCardStay.vue';
 import BoardingCardArrival from './BoardingCardArrival.vue';
 import BoardingCardPublicTransit from './BoardingCardPublicTransit.vue';
 import BoardingCardNearbyEssentials from './BoardingCardNearbyEssentials.vue';
-import BoardingCardFoodWeekly from './BoardingCardFoodWeekly.vue';
 
 import _ from 'lodash';
 
 export default {
-  components: { BoardingCardTextField, BoardingCardStay, BoardingCardArrival, BoardingCardPublicTransit, BoardingCardNearbyEssentials, BoardingCardFoodWeekly },
+  components: { BoardingCardTextField, BoardingCardStay, BoardingCardArrival, BoardingCardPublicTransit, BoardingCardNearbyEssentials },
   props: {
-    boardItem: {
-      type: Object,
-      required: false,
-      default: () => null,
-    },
-    boardId: {
+    boardID: {
       type: String,
     },
   },
@@ -153,77 +156,41 @@ export default {
     return {
       labelStyle: 'text-body-2 grey--text',
       panelHeaderStyle: 'text-overline grey--text text--darken-1 primary--text font-weight-bold',
-      defaultOpenPanels: [0, 5],
-      boardCopy: null,
+      defaultOpenPanels: [],
     }
   },
 
   computed: {
+    board() {
+      if (!this.$store.state.boards) return;
+      return this.$store.state.boards[this.boardID];
+    },
+
     isUserAuthenticated() {
       return this.$store.state.isUserAuthenticated;
     },
-    foodWeeklyTotal() {
-      if (!this.boardItem) return;
-
-      let determineFreqVal = (freq) => {
-        switch(freq) {
-          case "daily":
-            return 7;
-          case "occasionally":
-            return 3;
-          case "rarely":
-            return 1;
-          default:
-            return 0;
-        }
-      };
-
-      return this.boardItem.daily_food_expense.map(cost => {
-        return parseInt(cost.avg_cost) * determineFreqVal(cost.frequency);
-      });
-    },
-
-    /*
-    TODO: future feature
-    foodMonthlyTotal() {},
-    foodStayTotal() {},
-    */
 
     estimate_cost() {
-      if (!this.boardItem) return;
-      if (!this.boardItem.daily_food_expense) return;
+      if (!this.board) return;
 
-      let stayCost = !isNaN(this.boardItem.price) ? parseInt(this.boardItem.price) : 0;
-      let arrivalTransit = parseInt(this.boardItem.arrival.cost);
-      let foodTotal = this.foodWeeklyTotal.reduce((accumulator, a) => accumulator + a);
-      let publicTransitCost = this.boardItem.public_transit_pass.reduce((accumulator, a) => {
+      let stayCost = !isNaN(this.board.price) ? parseInt(this.board.price) : 0;
+      let arrivalTransit = parseInt(this.board.arrival_cost);
+      let publicTransitCost = this.board.transit.reduce((accumulator, a) => {
         return parseInt(accumulator.cost) + parseInt(a.cost);
       });
 
-      return stayCost + arrivalTransit + publicTransitCost + foodTotal;
-    },
-  },
-
-  created() {
-    if ( JSON.stringify(this.boardCopy) === JSON.stringify(this.boardItem) ) return;
-    this.boardCopy = JSON.parse( JSON.stringify( this.boardItem ) );
-  },
-
-  watch: {
-    boardItem(newVal) {
-      if ( JSON.stringify(this.boardCopy) != JSON.stringify(newVal) ) return;
-      this.boardCopy = JSON.parse( JSON.stringify(newVal) );
+      return stayCost + arrivalTransit + publicTransitCost;
     },
   },
 
   methods: {
     updateBoardForm: _.debounce(function(val) {
-      if (!this.boardCopy) return;
+      if (!this.board) return;
       // make sure values aren't the same, else, its going to override with an empty value
-      if (this.boardCopy[val.name] === val.value) return;
+      if (this.board[val.name] === val.value) return;
 
       this.$store.dispatch('updateBoard', {
-        id: this.boardId,
+        id: this.boardID,
         key: val.name,
         value: val.value
       })
@@ -236,7 +203,7 @@ export default {
     }, 1000),
 
     deleteBoard() {
-      this.$store.dispatch('deleteBoard', this.boardId);
+      this.$store.dispatch('deleteBoard', this.boardID);
     },
   },
 }
@@ -279,6 +246,27 @@ export default {
     }
     .v-textarea.v-text-field--solo {
       width: 100%;
+    }
+  }
+
+  // override title location styles
+  .location-container {
+    font-size: 0.7em;
+    font-weight: 400;
+    color: grey;
+    line-height: 1;
+
+    input, label {
+      color: grey;
+      font-size: 0.9em;
+    }
+
+    .v-input {
+      width: 100%;
+    }
+    .v-btn {
+      height: 1.7em;
+      width: 1.7em;
     }
   }
 }

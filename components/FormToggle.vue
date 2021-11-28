@@ -10,7 +10,7 @@
         icon
       >
         <v-icon small color="grey">
-          mdi-pencil
+          {{ icon }}
         </v-icon>
       </v-btn>
 
@@ -36,6 +36,12 @@
 
 <script>
 export default {
+  props: {
+    icon: {
+      type: String,
+      default: () => "",
+    }
+  },
   data() {
     return {
       show: false,

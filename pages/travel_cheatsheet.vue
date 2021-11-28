@@ -29,7 +29,7 @@
     <v-col cols="6" sm="12" md="6" lg="4" xl="4"
       v-for="(board, boardID, boardIndex) in boards"
       :key="'board-'+boardIndex">
-      <boarding-card :boardItem="board" :boardId="boardID" />
+      <boarding-card :boardItem="board" :boardID="boardID" />
     </v-col>
 
     <v-col cols="6" sm="12" md="6" lg="4" xl="4">
