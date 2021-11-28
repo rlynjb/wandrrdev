@@ -85,59 +85,25 @@
         </v-col>
 
         <v-col>
-          <div v-if="!isUserAuthenticated">
-          <v-dialog
-            v-model="loginDialog"
-            width="500"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                depressed
-                dark
-                v-bind="attrs"
-                v-on="on"
-              >
-                Login
-              </v-btn>
-            </template>
-
-            <v-card>
-              <v-card-title>
-                <v-col cols="11"
-                  class="pa-0">
-                  Login
-                </v-col>
-
-                <v-col cols="1"
-                  class="pa-0 text-right">
-                  <v-btn
-                    icon
-                    @click="loginDialog = false"
-                  >
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
-                </v-col>
-              </v-card-title>
-
-              <v-divider class="mt-1 mb-5" />
-
-              <v-card-text>
-                <v-btn
-                  @click="$store.dispatch('auth/loginWithGoogle')"
-                >
-                  Google
-                </v-btn>
-              </v-card-text>
-            </v-card>
-          </v-dialog>
+          <div v-if="isUserAuthenticated"
+            class="d-inline-block mr-3">
+            Hi, {{ isUserAuthenticated.displayName }}
           </div>
 
+          <v-btn
+            v-if="!isUserAuthenticated"
+            color="primary"
+            depressed
+            dark
+            @click="$store.dispatch('auth/loginWithGoogle')">
+            Login
+          </v-btn>
           <v-btn v-else
+            depressed
+            dark
             @click="$store.dispatch('auth/logout')">
             Logout
           </v-btn>
-
         </v-col>
       </v-row>
     </v-footer>
@@ -188,5 +154,9 @@ a {
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Optima', sans-serif !important;
   }
+}
+
+footer {
+  min-height: 3.7em;
 }
 </style>

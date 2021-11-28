@@ -70,19 +70,18 @@ export const actions = {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         commit('setUser', user);
-        debugger;
       } else {
         // User is signed out
         commit('setUser', null);
-        debugger
       }
     });
   },
 
-  logout() {
+  logout({ commit }, payload) {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        commit('setUser', null);
         debugger
       }).catch((error) => {
         // An error happened.
