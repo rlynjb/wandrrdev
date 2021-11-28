@@ -1,14 +1,19 @@
 <template>
 <div class="pt-6 pb-16">
   <v-row>
-    <v-col cols="12" sm="12" md="12" lg="12" xl="12">
+    <v-col cols="6" sm="12" md="6" lg="6" xl="6">
       <boarding-card-text-field
-        label="add new area? what's the name"
+        label="Where are you going to stay?"
         name="area_name"
         :value="form.area_name"
         @newvalue="postBoardForm"
         ref="area_name"
       />
+    </v-col>
+
+    <v-col cols="6" sm="12" md="6" lg="6" xl="6"
+      class="grey--text text--darken-2">
+      What did you do today? (Coming soon)
     </v-col>
   </v-row>
 

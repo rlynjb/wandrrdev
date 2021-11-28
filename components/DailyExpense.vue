@@ -6,9 +6,9 @@
     I had ( treatyoself ) today, and cost me this much ( total cost )
     ex. foodie fest, pride fest, regular working days, treat yoself
 
-    - had coffee for 8 bucks at shopp *optional
+    - had ~coffee~ for ~8~ bucks at ~shopp~ *optional (location includes address)
     pic or link to vid
-    - had pho for 12 bucks at phosho *optional
+    - had ~pho~ for ~12~ bucks at ~phosho~ *optional
     pic or link to vid
   </div>
 </template>

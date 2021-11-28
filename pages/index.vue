@@ -146,7 +146,7 @@ export default {
           title: 'my portfolio',
           img: 'http://placehold.it/300x200',
           desc: 'where i showcase my skills',
-          technical_skills: ['vue.js', 'nuxt.js', 'static site'],
+          technical_skills: ['vue.js', 'nuxt.js', 'firebase', 'realtime database', 'authentication'],
           link: '/travel_cheatsheet'
         }
       ],
