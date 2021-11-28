@@ -5,7 +5,7 @@
       <boarding-card-text-field
         label="Where are you going to stay?"
         name="area_name"
-        :value="form.area_name"
+        :value="area_name"
         @newvalue="postBoardForm"
         ref="area_name"
       />
@@ -13,10 +13,17 @@
 
     <v-col cols="6" sm="12" md="6" lg="6" xl="6"
       class="grey--text text--darken-2">
-      What did you do today? (Coming soon)
+      What did you do today? (daily card Coming soon)
+    </v-col>
+
+    <v-col cols="6" sm="12" md="6" lg="6" xl="6"
+      class="grey--text text--darken-2">
+      How was the travel (travel card Coming soon)
     </v-col>
   </v-row>
 
+  <!--
+    NOTE: implement this next feature
   <v-row class="mt-3">
     <v-col>
       <b class="d-block d-sm-block d-md-block d-lg-block d-xl-block primary--text">
@@ -29,6 +36,7 @@
       </v-chip>
     </v-col>
   </v-row>
+  -->
 
   <v-row>
     <v-col cols="6" sm="12" md="6" lg="4" xl="4"
@@ -46,9 +54,7 @@ export default {
   components: { BoardingCard },
   data: () => {
     return {
-      form: {
-        area_name: '',
-      },
+      area_name: '',
       cities: [
         {
           name: 'Las Vegas',
