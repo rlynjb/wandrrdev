@@ -85,6 +85,7 @@
         </v-col>
 
         <v-col>
+          <div v-if="!isUserAuthenticated">
           <v-dialog
             v-model="loginDialog"
             width="500"
@@ -122,10 +123,20 @@
               <v-divider class="mt-1 mb-5" />
 
               <v-card-text>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <v-btn
+                  @click="$store.dispatch('auth/loginWithGoogle')"
+                >
+                  Google
+                </v-btn>
               </v-card-text>
             </v-card>
           </v-dialog>
+          </div>
+
+          <v-btn v-else
+            @click="$store.dispatch('auth/logout')">
+            Logout
+          </v-btn>
 
         </v-col>
       </v-row>
@@ -147,7 +158,21 @@ export default {
         /*{ name: 'Travel', url: '/travel_cheatsheet' }*/
       ],
     }
-  }
+  },
+
+  computed: {
+    isUserAuthenticated() {
+      return this.$store.state.auth.isUserAuthenticated;
+    }
+  },
+
+  created() {
+    this.$store.dispatch('auth/onAuthStateChanged');
+  },
+
+  methods: {
+    //
+  },
 }
 </script>
 

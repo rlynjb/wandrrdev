@@ -60,7 +60,7 @@ export default {
 
   computed: {
     isUserAuthenticated() {
-      return this.$store.state.isUserAuthenticated;
+      return this.$store.state.auth.isUserAuthenticated;
     },
   },
 
