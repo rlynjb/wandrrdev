@@ -3,79 +3,76 @@
     <b :class="labelStyle">
       how to get pass and how much it cost
     </b>
+    <h4>search for:</h4>
     <v-btn depressed
       @click="gotoGooglePublicTransit(board.area_address, board.area_address)">
-      search for Transits
+      Transits
     </v-btn>
     <v-btn depressed
       @click="gotoGooglePublicTransitMap(board.area_address, board.area_address)"
       class="mt-3 mb-3">
-      search for map
+      Map
     </v-btn>
 
-    <br>
+    <v-divider class="mt-8 mb-8" />
 
     <ul>
       <li v-for="(transit, transitKey, transitIndex) in transits" 
         :key="'transit-'+transitIndex"
         class="mb-6">
-        <v-btn @click="deleteBoardTransit(transitKey)">
-          x
-        </v-btn>
-        <boarding-card-text-field
-          label="What ride option?"
-          name="name"
-          :value="transit.name"
-          class="d-inline-block"
-          @newvalue="updateBoardTransit($event, transitKey)"
-        />
-        <span :class="labelStyle">cost $</span>
-        <boarding-card-text-field
-          label="How much?"
-          name="cost"
-          :value="transit.cost"
-          class="d-inline-block"
-          @newvalue="updateBoardTransit($event, transitKey)"
-        />
-        <span :class="labelStyle">and tickets are sold at </span>
-        <boarding-card-text-field
-          label="Where to buy?"
-          name="where_purchase"
-          :value="transit.where_purchase"
-          class="d-inline-block"
-          @newvalue="updateBoardTransit($event, transitKey)"
-        />
-        <br>
-
-        <a :href="transit.info_link" target="_blank">more info</a>
-        <v-btn v-if="transitLink != 'transit-'+transitIndex"
-          @click="() => transitLink = 'transit-'+transitIndex" icon>
-          <v-icon small color="grey">
-            mdi-pencil
-          </v-icon>
-        </v-btn>
-        <v-btn v-if="transitLink === 'transit-'+transitIndex"
-          @click="() => transitLink = null" icon>
-          <v-icon small color="grey">
-            mdi-close
-          </v-icon>
+        <v-btn @click="deleteBoardTransit(transitKey)"
+          icon
+          class="float-right">
+          <v-icon>mdi-close</v-icon>
         </v-btn>
 
-        <br>
-
-        <div v-if="transitLink === 'transit-'+transitIndex">
+        <div>
           <boarding-card-text-field
-            label="enter link here"
-            name="info_link"
-            :value="transit.info_link"
+            label="What ride option?"
+            name="name"
+            :value="transit.name"
             class="d-inline-block"
             @newvalue="updateBoardTransit($event, transitKey)"
           />
+          <span :class="labelStyle">cost $</span>
+          <boarding-card-text-field
+            label="How much?"
+            name="cost"
+            :value="transit.cost"
+            class="d-inline-block"
+            @newvalue="updateBoardTransit($event, transitKey)"
+          />
+          <span :class="labelStyle">and tickets are sold at </span>
+          <boarding-card-text-field
+            label="Where to buy?"
+            name="where_purchase"
+            :value="transit.where_purchase"
+            class="d-inline-block"
+            @newvalue="updateBoardTransit($event, transitKey)"
+          />
+          <br>
+
+          <form-toggle>
+            <template v-slot:field>
+              <a :href="transit.info_link" target="_blank">more info</a>
+            </template>
+
+            <template v-slot:form>
+              <boarding-card-text-field
+                label="http://"
+                name="info_link"
+                :value="transit.info_link"
+                class="d-inline-block"
+                @newvalue="updateBoardTransit($event, transitKey)"
+              />
+            </template>
+          </form-toggle>
+
         </div>
       </li>
     </ul>
 
-    <v-divider class="mb-6" />
+    <v-divider class="mt-8 mb-8" />
 
     <boarding-card-text-field
       label="What ride option?"
@@ -100,7 +97,6 @@ export default {
 
   data: () => {
     return {
-      transitLink: null,
       labelStyle: 'text-body-2 grey--text',
       form: {
         name: ""

@@ -1,29 +1,42 @@
 <template>
-<v-card flat id="boardingCard" class="grey--text text--lighten-5">
+<v-card v-if="boardCopy" flat id="boardingCard" class="grey--text text--lighten-5">
+  <v-btn @click="deleteBoard"
+    depressed
+    class="float-right"
+    icon
+  >
+    <v-icon>mdi-close</v-icon>
+  </v-btn>
+
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
-    <boarding-card-text-field v-if="boardCopy"
+    <boarding-card-text-field 
       label="What's the area?"
       name="area_name"
       :value="boardCopy.area_name"
       @newvalue="updateBoardForm"
     />
-    <boarding-card-text-field v-else
-      label="What's the area?"
-      name="area_name"
-      :value="form.area_name"
-      @newvalue="postBoardForm"
-      ref="area_name"
-    />
 
-    <v-btn v-if="boardCopy" @click="deleteBoard"
-      depressed
-    >
-      x
-    </v-btn>
+    <div class="d-block">
+      <v-btn icon>
+        <v-icon>
+          mdi-crosshairs-gps
+        </v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>
+          mdi-map-marker
+        </v-icon>
+      </v-btn>
+      <!--
+        area_type: "", // ex. urban, downtown, burrough, suburbs
+        area_coordinates: [],
+        area_address:
+        -->
+    </div>
   </v-card-title>
 
   <v-expansion-panels
-    v-if="boardCopy"
     flat
     focusable
     multiple
@@ -81,6 +94,7 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
 
+<!--
     <v-expansion-panel>
       <v-expansion-panel-header
         expand-icon="mdi-currency-usd"
@@ -93,7 +107,7 @@
         <boarding-card-food-weekly :boardID="boardId" />
       </v-expansion-panel-content>
     </v-expansion-panel>
-
+-->
     <v-expansion-panel>
       <v-expansion-panel-header
         expand-icon="mdi-align-vertical-bottom"
@@ -140,9 +154,6 @@ export default {
       labelStyle: 'text-body-2 grey--text',
       panelHeaderStyle: 'text-overline grey--text text--darken-1 primary--text font-weight-bold',
       defaultOpenPanels: [0, 5],
-      form: {
-        area_name: '',
-      },
       boardCopy: null,
     }
   },
@@ -221,19 +232,6 @@ export default {
       })
       .catch(err => {
         console.log('ERR', err)
-      });
-    }, 1000),
-
-    postBoardForm: _.debounce(function(val) {
-      this.$store.dispatch('postBoard', {
-        key: val.name,
-        value: val.value
-      })
-      .then(() => {
-        this.$refs.area_name.clear();
-      })
-      .catch(err => {
-        console.log(err)
       });
     }, 1000),
 

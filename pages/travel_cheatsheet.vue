@@ -1,6 +1,16 @@
 <template>
-<div class="pt-10 pb-16">
-  <h2 class="d-inline-block">Travel Cheatsheet</h2>
+<div class="pt-6 pb-16">
+  <v-row>
+    <v-col cols="12" sm="12" md="12" lg="12" xl="12">
+      <boarding-card-text-field
+        label="add new area? what's the name"
+        name="area_name"
+        :value="form.area_name"
+        @newvalue="postBoardForm"
+        ref="area_name"
+      />
+    </v-col>
+  </v-row>
 
   <v-row class="mt-3">
     <v-col>
@@ -35,6 +45,9 @@ export default {
   components: { BoardingCard },
   data: () => {
     return {
+      form: {
+        area_name: '',
+      },
       cities: [
         {
           name: 'Las Vegas',
@@ -161,6 +174,21 @@ export default {
         */
         console.log(err)
       });
+  },
+
+  methods: {
+    postBoardForm: _.debounce(function(val) {
+      this.$store.dispatch('postBoard', {
+        key: val.name,
+        value: val.value
+      })
+      .then(() => {
+        this.$refs.area_name.clear();
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    }, 1000),
   },
 }
 </script>
