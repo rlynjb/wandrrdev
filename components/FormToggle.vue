@@ -4,13 +4,14 @@
       <slot name="field"></slot>
     </div>
 
-    <div class="d-inline-block">
+    <div v-if="isUserAuthenticated"
+      class="d-inline-block">
       <v-btn v-if="!show"
         @click="() => show = true"
         icon
       >
         <v-icon small color="grey">
-          {{ icon }}
+          mdi-pencil
         </v-icon>
       </v-btn>
 
@@ -46,6 +47,12 @@ export default {
     return {
       show: false,
     }
+  },
+
+  computed: {
+    isUserAuthenticated() {
+      return this.$store.state.auth.isUserAuthenticated;
+    },
   },
 }
 </script>

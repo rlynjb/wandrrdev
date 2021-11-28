@@ -1,6 +1,7 @@
 <template>
 <v-card v-if="board" flat id="boardingCard" class="grey--text text--lighten-5">
-  <v-btn @click="deleteBoard"
+  <v-btn v-if="isUserAuthenticated"
+    @click="deleteBoard"
     depressed
     class="float-right"
     icon
@@ -19,7 +20,7 @@
     </v-col>
 
     <v-col cols="12" class="location-container pl-0 pr-0 pt-2 pb-0">
-      <form-toggle icon="mdi-map-marker">
+      <form-toggle>
         <template v-slot:field>
           at {{ board.area_address }}
         </template>
@@ -41,7 +42,7 @@
         </template>
       </form-toggle>
 
-      <form-toggle icon="mdi-domain" class="pt-2">
+      <form-toggle class="pt-2">
         <template v-slot:field>
           and its {{ board.area_type }} type of neighborhood
         </template>
@@ -167,7 +168,7 @@ export default {
     },
 
     isUserAuthenticated() {
-      return this.$store.state.isUserAuthenticated;
+      return this.$store.state.auth.isUserAuthenticated;
     },
 
     estimate_cost() {

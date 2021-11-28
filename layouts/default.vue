@@ -1,5 +1,6 @@
 <template>
-  <v-app dark>
+  <v-app dark
+    :class="isUserAuthenticated ? 'authenticated' : 'anonymousUser'">
     <v-app-bar
       fixed
       app

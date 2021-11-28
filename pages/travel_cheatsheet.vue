@@ -1,6 +1,6 @@
 <template>
 <div class="pt-6 pb-16">
-  <v-row>
+  <v-row v-if="isUserAuthenticated">
     <v-col cols="6" sm="12" md="6" lg="6" xl="6">
       <boarding-card-text-field
         label="Where are you going to stay?"
@@ -35,10 +35,6 @@
       v-for="(board, boardID, boardIndex) in boards"
       :key="'board-'+boardIndex">
       <boarding-card :boardItem="board" :boardID="boardID" />
-    </v-col>
-
-    <v-col cols="6" sm="12" md="6" lg="4" xl="4">
-      <boarding-card />
     </v-col>
   </v-row>
 </div>
@@ -168,6 +164,9 @@ export default {
     boards() {
       return this.$store.state.boards;
     },
+    isUserAuthenticated() {
+      return this.$store.state.auth.isUserAuthenticated;
+    }
   },
 
   created() {

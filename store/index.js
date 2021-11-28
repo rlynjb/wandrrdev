@@ -10,15 +10,6 @@ import {
   onValue,
 } from "firebase/database";
 
-/*
-import {
-  getAuth,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-  updateProfile,
-} from "firebase/auth";
-*/
-
 // https://github.com/diegohaz/schm
 //import schema from 'schm';
 
@@ -41,30 +32,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+
 // Get a reference to the database service
 const database = getDatabase(app);
-
-/*
-// Get a reference to the auth service
-const auth = getAuth();
-const provider = new GoogleAuthProvider();
-// exclusive to only certain users and not for public use
-// provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
-// were using an observer so incase the app hasnt initialize
-// auth object, were listening still for changes
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
-});
-*/
 
 // ========================================================
 

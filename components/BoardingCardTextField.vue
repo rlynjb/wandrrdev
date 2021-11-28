@@ -59,7 +59,7 @@ export default {
 
   computed: {
     isUserAuthenticated() {
-      return this.$store.state.isUserAuthenticated;
+      return this.$store.state.auth.isUserAuthenticated;
     },
   },
 
@@ -94,6 +94,16 @@ export default {
   }
   .v-text-field.v-text-field--solo .v-input__control {
     min-height: unset;
+  }
+}
+
+.anonymousUser {
+  #boardingCard .v-text-field--filled > .v-input__control > .v-input__slot, #boardingCard .v-text-field--full-width > .v-input__control > .v-input__slot, #boardingCard .v-text-field--outlined > .v-input__control > .v-input__slot {
+    border-bottom: 0;
+  }
+  #boardingCard .theme--dark.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot:hover {
+    background: rgba(255, 255, 255, 0);
+    border-bottom: 0;
   }
 }
 </style>

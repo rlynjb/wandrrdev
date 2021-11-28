@@ -82,10 +82,8 @@ export const actions = {
       .then(() => {
         // Sign-out successful.
         commit('setUser', null);
-        debugger
       }).catch((error) => {
         // An error happened.
-        debugger
       });
   },
 }

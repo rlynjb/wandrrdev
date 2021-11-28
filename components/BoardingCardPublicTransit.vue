@@ -20,7 +20,8 @@
       <li v-for="(transit, transitKey, transitIndex) in transits" 
         :key="'transit-'+transitIndex"
         class="mb-6">
-        <v-btn @click="deleteBoardTransit(transitKey)"
+        <v-btn v-if="isUserAuthenticated"
+          @click="deleteBoardTransit(transitKey)"
           icon
           class="float-right">
           <v-icon>mdi-close</v-icon>
@@ -52,7 +53,7 @@
           />
           <br>
 
-          <form-toggle icon="mdi-pencil">
+          <form-toggle>
             <template v-slot:field>
               <a :href="transit.info_link" target="_blank">more info</a>
             </template>
@@ -72,16 +73,18 @@
       </li>
     </ul>
 
-    <v-divider class="mt-8 mb-8" />
+    <div v-if="isUserAuthenticated">
+      <v-divider class="mt-8 mb-8" />
 
-    <boarding-card-text-field
-      label="What ride option?"
-      name="name"
-      :value="form.name"
-      class="d-inline-block"
-      @newvalue="postBoardTransitForm"
-      ref="name"
-    />
+      <boarding-card-text-field
+        label="What ride option?"
+        name="name"
+        :value="form.name"
+        class="d-inline-block"
+        @newvalue="postBoardTransitForm"
+        ref="name"
+      />
+    </div>
   </div>
 </template>
 
@@ -110,7 +113,10 @@ export default {
     },
     transits() {
       return this.$store.state.boards[this.boardID].transit;
-    }
+    },
+    isUserAuthenticated() {
+      return this.$store.state.auth.isUserAuthenticated;
+    },
   },
 
   methods: {
