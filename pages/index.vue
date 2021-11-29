@@ -9,9 +9,9 @@
       <h1 class="font-weight-light text-lg-h1">ReinaLyn</h1>
       <h2 class="primary--text">I build stuff for the internet.</h2>
       <p>
-        I’m a software engineer specializing in building (and occasionally designing) digital experiences. Currently, I’m focused on extending features, rafactoring, and rewriting code on existing applications at Switch.
+        I’m a software engineer specializing in building (and occasionally designing) digital experiences. Currently, I’m focused on extending features, refactoring, and rewriting code on existing applications at Switch.
       </p>
-      <h4>
+      <h4 class="primary--text">
         Here are a few technologies I’ve been working with recently:
       </h4>
       <ul>
@@ -27,11 +27,11 @@
     <v-col cols="8" id="about" class="pt-16 pb-16">
       <h3 class="primary--text">About Me</h3>
       <p>
-        Hello! My name is ReinaLyn and I enjoy creating things that live on the internet and learning new things.
+        Hello! My name is ReinaLyn and I enjoy creating and learning new things that live on the internet.
         I've touched various technologies from editing themes and configuring wordpress websites to building web apps using JS frameworks. My interest in web development started back in 2004 when I decided to try Macromedia Flash — turns out interactive websites taught me web design and making it functional.
       </p>
       <p>
-        Fast-forward to today, and I’ve had the privilege of working at start-ups, a medium size company, and a huge corporation. My main focus these days is building accessible, inclusive products and digital experiences at Switch for a variety of users.
+        Fast-forward to today, I’ve had the opportunity of working at start-ups, a medium size company, and a huge corporation. My main focus these days is building accessible, inclusive products and digital experiences at Switch for a variety of users.
       </p>
     </v-col>
     <v-col cols="5">
