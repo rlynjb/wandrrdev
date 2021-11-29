@@ -86,6 +86,7 @@
         </v-col>
 
         <v-col>
+          <!--
           <div v-if="isUserAuthenticated"
             class="d-inline-block mr-3">
             Hi, {{ isUserAuthenticated.displayName }}
@@ -105,6 +106,7 @@
             @click="$store.dispatch('auth/logout')">
             Logout
           </v-btn>
+          -->
         </v-col>
       </v-row>
     </v-footer>

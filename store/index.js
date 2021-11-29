@@ -128,15 +128,11 @@ export const actions = {
       onValue(boardsRef, (data) => {
         if (data) {
           commit('setBoards', data.val());
-          debugger
           resolve(data.val());
           return;
         }
-        debugger
         reject(null);
       });
-
-      debugger
     });
   },
 

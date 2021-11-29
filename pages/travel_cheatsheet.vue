@@ -1,5 +1,28 @@
 <template>
 <div class="pt-6 pb-16">
+  <v-row>
+    <v-col>
+      <div v-if="isUserAuthenticated"
+        class="d-inline-block mr-3">
+        Hi, {{ isUserAuthenticated.displayName }}
+      </div>
+
+      <v-btn
+        v-if="!isUserAuthenticated"
+        color="primary"
+        depressed
+        dark
+        @click="$store.dispatch('auth/loginWithGoogle')">
+        Login
+      </v-btn>
+      <v-btn v-else
+        depressed
+        dark
+        @click="$store.dispatch('auth/logout')">
+        Logout
+      </v-btn>
+    </v-col>
+  </v-row>
   <v-row v-if="isUserAuthenticated">
     <v-col cols="6" sm="12" md="6" lg="6" xl="6">
       <boarding-card-text-field
