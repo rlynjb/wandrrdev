@@ -31,7 +31,7 @@
         I've touched various technologies from editing themes and configuring wordpress websites to building web apps using JS frameworks. My interest in web development started back in 2004 when I decided to try Macromedia Flash — turns out interactive websites taught me web design and making it functional.
       </p>
       <p>
-        Fast-forward to today, I’ve had the opportunity of working at start-ups, a medium size company, and a huge corporation. My main focus these days is building accessible, inclusive products and digital experiences at Switch for a variety of users.
+        Fast-forward to today, I’ve had the opportunity of working at start-ups, a medium size company, and a huge corporation.
       </p>
     </v-col>
     <v-col cols="5">
