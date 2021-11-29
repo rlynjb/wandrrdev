@@ -1,6 +1,6 @@
 <template>
 <div class="pt-16">
-  <v-row justify="center" align="center" class="pt-16 pb-16">
+  <v-row justify="center" align="center" class="pt-5 pb-16">
     <v-col cols="3">
       <img src="logo2.png" />
     </v-col>
@@ -23,7 +23,7 @@
     </v-col>
   </v-row>
 
-  <v-row justify="center" align="center" class="pt-16 pb-16">
+  <v-row justify="center" align="center" class="pt-5 pb-16">
     <v-col cols="8" id="about" class="pt-16 pb-16">
       <h3 class="primary--text">About Me</h3>
       <p>
