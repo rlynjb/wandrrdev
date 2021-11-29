@@ -57,6 +57,8 @@
     </v-col>
 
     <v-col cols="12" id="work" class="pt-16 pb-16">
+      <h2 class="primary--text mb-4 text-center">Coming Soon</h2>
+      <!--
       <h3 class="primary--text mb-4">Some Things I've Built</h3>
       <v-row>
         <v-col v-for="(workItem, workIndex) in work" :key="'workItem-'+workIndex"
@@ -73,6 +75,7 @@
           <NuxtLink :to="workItem.link">view</NuxtLink>
         </v-col>
       </v-row>
+      -->
     </v-col>
   </v-row>
 
