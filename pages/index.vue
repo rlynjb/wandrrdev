@@ -11,6 +11,15 @@
       <p>
         I’m a software engineer specializing in building (and occasionally designing) digital experiences. Currently, I’m focused on extending features, rafactoring, and rewriting code on existing applications at Switch.
       </p>
+      <h4>
+        Here are a few technologies I’ve been working with recently:
+      </h4>
+      <ul>
+        <li>JavaScript (ES6+)</li>
+        <li>Vue.js</li>
+        <li>Nuxt.js</li>
+        <li>Firebase</li>
+      </ul>
     </v-col>
   </v-row>
 
@@ -18,23 +27,12 @@
     <v-col cols="8" id="about" class="pt-16 pb-16">
       <h3 class="primary--text">About Me</h3>
       <p>
-        Hello! My name is ReinaLyn and I enjoy creating things that live on the internet. My interest in web development started back in 2004 when I decided to try Macromedia Flash — turns out hacking together a custom reblog button taught me a lot about HTML & CSS!
+        Hello! My name is ReinaLyn and I enjoy creating things that live on the internet and learning new things.
+        I've touched various technologies from editing themes and configuring wordpress websites to building web apps using JS frameworks. My interest in web development started back in 2004 when I decided to try Macromedia Flash — turns out interactive websites taught me web design and making it functional.
       </p>
       <p>
-        Fast-forward to today, and I’ve had the privilege of working at start-ups, an advertising agency, a medium size company, and a huge corporation. My main focus these days is building accessible, inclusive products and digital experiences at Switch for a variety of clients.
+        Fast-forward to today, and I’ve had the privilege of working at start-ups, a medium size company, and a huge corporation. My main focus these days is building accessible, inclusive products and digital experiences at Switch for a variety of users.
       </p>
-      <p>
-        I also recently launched a course that covers everything you need to build a web app with the Spotify API using Node & React.
-      </p>
-      <h4>
-        Here are a few technologies I’ve been working with recently:
-      </h4>
-      <ul>
-        <li>JavaScript (ES6+)</li>
-        <li>Vue.js</li>
-        <li>Node.js</li>
-        <li>TypeScript</li>
-      </ul>
     </v-col>
     <v-col cols="5">
     </v-col>
