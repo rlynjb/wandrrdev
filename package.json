@@ -7,7 +7,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "jest"
+    "test": "jest",
+    "firebase-deploy": "nuxt generate && firebase deploy --only hosting && rm -rf .firebase"
   },
   "dependencies": {
     "core-js": "^3.15.1",
