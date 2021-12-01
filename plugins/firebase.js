@@ -1,5 +1,17 @@
 import { initializeApp } from 'firebase/app';
 
+import {
+  getDatabase,
+} from "firebase/database";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+
 /*
   NOTE:
   Transfer firebase app init here,
@@ -8,9 +20,6 @@ import { initializeApp } from 'firebase/app';
   - find out if we can access it to the store
 */
 
-console.log('HELLO FIREBAE', initializeApp)
-
-// https://thewandrr-bb83c-default-rtdb.firebaseio.com/
 /*
   NOTE:
   how to generate api key
@@ -28,8 +37,37 @@ const firebaseConfig = {
   //storageBucket: "bucket.appspot.com"
 };
 
-const app = initializeApp(firebaseConfig);
+const firebaseInit = initializeApp(firebaseConfig);
+const firebaseDatabaseRef = getDatabase(firebaseInit);
 
-export default function({ app }, inject) {
-  console.log('firebase', app)
+/*
+  NOTE:
+  using google auth
+  ref: https://firebase.google.com/docs/auth/web/google-signin
+*/
+// Get a reference to the auth service
+const firebaseAuth = getAuth();
+const firebaseProvider = new GoogleAuthProvider();
+/*
+  exclusive to only certain users and not for public use
+  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+*/
+
+
+/*
+NOTE: testing and playing around with vue plugins
+still need to learn more about Vue plugins tho
+export default (context, inject) => {
+  inject('helloTest', val => console.log('kirby', val));
+  inject('initFirebase', () => firebaseInit);
+  // initialize app
+  // initialize auth and its methods
+}
+*/
+
+export {
+  firebaseInit,
+  firebaseDatabaseRef,
+  firebaseAuth,
+  firebaseProvider,
 }

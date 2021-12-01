@@ -136,7 +136,13 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('auth/onAuthStateChanged');
+    this.$store.dispatch('auth/onAuthStateChanged')
+      .then((user) => {
+        this.$store.commit('auth/setUser', user);
+      })
+      .catch(err => {
+        this.$store.commit('auth/setUser', err);
+      });
   },
 
   methods: {

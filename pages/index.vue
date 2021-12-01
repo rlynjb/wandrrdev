@@ -92,9 +92,6 @@
 
 <script>
 export default {
-  created() {
-    //console.log(this.$store)
-  },
   data() {
     return {
       experience: [

@@ -1,7 +1,4 @@
-import { initializeApp } from 'firebase/app';
-
 import {
-  getDatabase,
   ref,
   set,
   push,
@@ -10,31 +7,10 @@ import {
   onValue,
 } from "firebase/database";
 
-// https://github.com/diegohaz/schm
-//import schema from 'schm';
+import {
+  firebaseDatabaseRef
+} from '../plugins/firebase.js';
 
-// https://thewandrr-bb83c-default-rtdb.firebaseio.com/
-/*
-  NOTE:
-  how to generate api key
-  ref: https://stackoverflow.com/questions/64690983/web-api-key-is-not-generated-in-firebase-while-creating-a-new-project-as-stated
-*/
-// Set the configuration for your app
-// TODO: Replace with your project's config object
-const firebaseConfig = {
-  apiKey: "AIzaSyAQpWhJkOaD9qsh_r7N0nufhLXWKh43feQ",
-  authDomain: "thewandrr-bb83c.firebaseapp.com",
-  // For databases not in the us-central1 location, databaseURL will be of the
-  // form https://[databaseName].[region].firebasedatabase.app.
-  // For example, https://your-database-123.europe-west1.firebasedatabase.app
-  databaseURL: "https://thewandrr-bb83c-default-rtdb.firebaseio.com/",
-  //storageBucket: "bucket.appspot.com"
-};
-
-const app = initializeApp(firebaseConfig);
-
-// Get a reference to the database service
-const database = getDatabase(app);
 
 // ========================================================
 
@@ -55,6 +31,8 @@ export const mutations = {
   we might want to use some js-data module
   for implementing type, validation, parsing
 */
+// https://github.com/diegohaz/schm
+//import schema from 'schm';
 
 const transitSchema = {
   name: "",
@@ -90,14 +68,14 @@ export const actions = {
       Create a new post reference with an auto-generated id
       ref: https://firebase.google.com/docs/database/web/lists-of-data?authuser=0
     */
-    const boardsRef = ref(database, "boards");
+    const boardsRef = ref(firebaseDatabaseRef, "boards");
     const newBoardPostRef = push(boardsRef);
 
     return set(newBoardPostRef, boardSchema);
   },
 
   updateBoard({ commit }, { id, key, value }) {
-    const boardsRef = ref(database, "boards/" + id);
+    const boardsRef = ref(firebaseDatabaseRef, "boards/" + id);
 
     /*
       NOTE:
@@ -110,7 +88,7 @@ export const actions = {
   },
 
   deleteBoard({ dispatch }, id) {
-    const boardsRef = ref(database, "boards/" + id);
+    const boardsRef = ref(firebaseDatabaseRef, "boards/" + id);
     remove(boardsRef)
   },
 
@@ -124,7 +102,7 @@ export const actions = {
       changes to a collection whether if something is added, deleted
     */
     return new Promise((resolve, reject) => {
-      const boardsRef = ref(database, 'boards');
+      const boardsRef = ref(firebaseDatabaseRef, 'boards');
       onValue(boardsRef, (data) => {
         if (data) {
           commit('setBoards', data.val());
@@ -139,14 +117,14 @@ export const actions = {
   postBoardTransit({ commit }, { id, key, value }) {
     transitSchema[key] = value;
 
-    const boardTransitRef = ref(database, "boards/" + id + "/transit");
+    const boardTransitRef = ref(firebaseDatabaseRef, "boards/" + id + "/transit");
     const newBoardTransitPostRef = push(boardTransitRef);
 
     return set(newBoardTransitPostRef, transitSchema);
   },
 
   updateBoardTransit({ commit }, { boardID, transitID, key, value }) {
-    const boardTransitRef = ref(database, "boards/" + boardID + "/transit/" + transitID);
+    const boardTransitRef = ref(firebaseDatabaseRef, "boards/" + boardID + "/transit/" + transitID);
 
     return update(boardTransitRef, {
       [key]: value
@@ -154,7 +132,7 @@ export const actions = {
   },
 
   deleteBoardTransit({ dispatch }, { boardID, transitID }) {
-    const boardTransitRef = ref(database, "boards/" + boardID + "/transit/" + transitID);
+    const boardTransitRef = ref(firebaseDatabaseRef, "boards/" + boardID + "/transit/" + transitID);
     remove(boardTransitRef);
   },
 }

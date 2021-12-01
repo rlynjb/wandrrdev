@@ -18,7 +18,7 @@
       <v-btn v-else
         depressed
         dark
-        @click="$store.dispatch('auth/logout')">
+        @click="logout">
         Logout
       </v-btn>
     </v-col>
@@ -222,6 +222,16 @@ export default {
         console.log(err)
       });
     }, 1000),
+
+    logout() {
+      this.$store.dispatch('auth/logout')
+        .then(() => {
+          this.$store.commit('auth/setUser', null)
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+    },
   },
 }
 </script>
