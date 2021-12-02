@@ -22,18 +22,21 @@
     <v-col cols="12" class="location-container pl-0 pr-0 pt-2 pb-0">
       <form-toggle>
         <template v-slot:field>
+          <v-btn>
+            map
+          </v-btn>
           at {{ board.area_address }}
         </template>
         <template v-slot:form>
           <boarding-card-text-field
-            label="address: street, city, state, country, zipcode"
+            label="street, city, state, country, zipcode"
             name="area_address"
             :value="board.area_address"
             class="d-inline-block"
             @newvalue="updateBoardForm"
           />
           <boarding-card-text-field
-            label="coordinates: lat, long"
+            label="lat, long"
             name="area_coordinates"
             :value="board.area_coordinates"
             class="d-inline-block"
@@ -48,7 +51,7 @@
         </template>
         <template v-slot:form>
           <boarding-card-text-field
-            label="type: urban, downtown, burrough, suburbs"
+            label="urban, downtown, burrough, suburbs"
             name="area_type"
             :value="board.area_type"
             class="d-inline-block"
@@ -116,7 +119,7 @@
         <boarding-card-nearby-essentials :boardID="boardID" />
       </v-expansion-panel-content>
     </v-expansion-panel>
-
+<!--
     <v-expansion-panel>
       <v-expansion-panel-header
         expand-icon="mdi-align-vertical-bottom"
@@ -127,11 +130,10 @@
       </v-expansion-panel-header>
       <v-expansion-panel-content>
         <b :class="labelStyle">includes *stay, *arrival transit, *public transit pass</b><br>
-        <!--
         ${{ estimate_cost }}
-        -->
       </v-expansion-panel-content>
     </v-expansion-panel>
+-->
   </v-expansion-panels>
 </v-card>
 </template>
@@ -157,7 +159,7 @@ export default {
     return {
       labelStyle: 'text-body-2 grey--text',
       panelHeaderStyle: 'text-overline grey--text text--darken-1 primary--text font-weight-bold',
-      defaultOpenPanels: [],
+      defaultOpenPanels: [1,2],
     }
   },
 

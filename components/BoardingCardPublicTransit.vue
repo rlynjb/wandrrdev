@@ -5,11 +5,11 @@
     </b>
     <h4>search for:</h4>
     <v-btn depressed
-      @click="gotoGooglePublicTransit(board.area_address, board.area_address)">
+      @click="gotoGooglePublicTransit">
       Transits
     </v-btn>
     <v-btn depressed
-      @click="gotoGooglePublicTransitMap(board.area_address, board.area_address)"
+      @click="gotoGooglePublicTransitMap"
       class="mt-3 mb-3">
       Map
     </v-btn>
@@ -111,6 +111,9 @@ export default {
     board() {
       return this.$store.state.boards[this.boardID];
     },
+    area_address() {
+      return this.board.area_address;
+    },
     transits() {
       return this.$store.state.boards[this.boardID].transit;
     },
@@ -160,13 +163,35 @@ export default {
       });
     },
 
-    gotoGooglePublicTransit(city, state) {
-      let googleUrlSearch = `https://www.google.com/search?q=public+transportation+in+${ city }+${ state }`;
+    getAddress(cat) {
+      let result = '';
+      switch(cat) {
+        case 'street':
+          result = this.area_address.split(',')[0];
+          break;
+        case 'city':
+          result = this.area_address.split(',')[1];
+          break;
+        case 'state':
+          result = this.area_address.split(',')[2];
+          break;
+        case 'zipcode':
+          result = this.area_address.split(',')[3];
+          break;
+        default:
+          result = '';
+      }
+
+      return result.replace(' ', '');
+    },
+
+    gotoGooglePublicTransit(val) {
+      let googleUrlSearch = `https://www.google.com/search?q=public+transportation+in+${ this.getAddress('city') }+${ this.getAddress('state') }`;
       window.open(googleUrlSearch, '_blank');
     },
 
-    gotoGooglePublicTransitMap(city, state) {
-      let googleUrlSearch = `https://www.google.com/search?q=public+transportation+map+in+${ city }+${ state }`;
+    gotoGooglePublicTransitMap(val) {
+      let googleUrlSearch = `https://www.google.com/search?q=public+transportation+map+in+${ this.getAddress('city') }+${ this.getAddress('state') }`;
       window.open(googleUrlSearch, '_blank');
     },
   },

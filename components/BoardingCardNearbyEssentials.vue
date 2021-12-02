@@ -52,15 +52,19 @@ export default {
     board() {
       return this.$store.state.boards[this.boardID];
     },
+    area_coordinates() {
+      return this.board.area_coordinates;
+    },
   },
 
   methods: {
     gotoGmap(category) {
-      if (!this.board) return;
-      if (!this.board.location) return;
+      if (!this.board && !this.area_coordinates === '') return;
 
-      let lat = this.board.location.coordinates[0];
-      let long = this.board.location.coordinates[1];
+      const formatCoordinates = this.area_coordinates.replaceAll(' ', '').split(',');
+
+      let lat = formatCoordinates[0];
+      let long = formatCoordinates[1];
 
       let cat = category.split('_').map((v, i) => {
         if (i === category.split('_').length - 1) {
