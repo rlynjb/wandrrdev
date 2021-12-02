@@ -3,23 +3,27 @@
     <b :class="labelStyle">
       how to get pass and how much it cost
     </b>
-    <h4>search for:</h4>
-    <v-btn depressed
+    <br>
+    <h4 class="d-inline-block">search for:</h4>
+    <v-btn icon
       @click="gotoGooglePublicTransit">
-      Transits
+      <v-icon class="primary--text">
+        mdi-subway-variant
+      </v-icon>
     </v-btn>
-    <v-btn depressed
+    <v-btn icon
       @click="gotoGooglePublicTransitMap"
       class="mt-3 mb-3">
-      Map
+      <v-icon class="primary--text">
+        mdi-map
+      </v-icon>
     </v-btn>
 
-    <v-divider class="mt-8 mb-8" />
-
     <ul>
-      <li v-for="(transit, transitKey, transitIndex) in transits" 
-        :key="'transit-'+transitIndex"
-        class="mb-6">
+      <li
+        class="mb-6"
+        v-for="(transit, transitKey, transitIndex) in transits" 
+        :key="'transit-'+transitIndex">
         <v-btn v-if="isUserAuthenticated"
           @click="deleteBoardTransit(transitKey)"
           icon
@@ -51,40 +55,20 @@
             class="d-inline-block"
             @newvalue="updateBoardTransit($event, transitKey)"
           />
-          <br>
-
-          <form-toggle>
-            <template v-slot:field>
-              <a :href="transit.info_link" target="_blank">more info</a>
-            </template>
-
-            <template v-slot:form>
-              <boarding-card-text-field
-                label="http://"
-                name="info_link"
-                :value="transit.info_link"
-                class="d-inline-block"
-                @newvalue="updateBoardTransit($event, transitKey)"
-              />
-            </template>
-          </form-toggle>
-
         </div>
       </li>
+
+      <li v-if="isUserAuthenticated">
+        <boarding-card-text-field
+          label="What ride option?"
+          name="name"
+          :value="form.name"
+          class="d-inline-block"
+          @newvalue="postBoardTransitForm"
+          ref="name"
+        />
+      </li>
     </ul>
-
-    <div v-if="isUserAuthenticated">
-      <v-divider class="mt-8 mb-8" />
-
-      <boarding-card-text-field
-        label="What ride option?"
-        name="name"
-        :value="form.name"
-        class="d-inline-block"
-        @newvalue="postBoardTransitForm"
-        ref="name"
-      />
-    </div>
   </div>
 </template>
 

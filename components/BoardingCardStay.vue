@@ -1,7 +1,7 @@
 <template>
   <div v-if="board">
     <b :class="labelStyle">during:</b>
-    <div>
+    <div class="d-inline-block">
       <boarding-card-text-field
         label="from: MM/DD/YYYY"
         name="stayed_date_from"
@@ -9,7 +9,9 @@
         class="d-inline-block"
         @newvalue="updateBoardForm"
       />
+
       <b :class="labelStyle">-</b>
+
       <boarding-card-text-field
         label="to: MM/DD/YYYY"
         name="stayed_date_to"
@@ -18,8 +20,10 @@
         @newvalue="updateBoardForm"
       />
       <br>
+      <b :class="labelStyle">(0 days, 0 weeks, 0 months)</b>
     </div>
-    <b :class="labelStyle">(0 days, 0 weeks, 0 months)</b><br>
+
+    <br>
 
     <b :class="labelStyle">in:</b>
     <boarding-card-text-field
@@ -29,7 +33,6 @@
       class="d-inline-block"
       @newvalue="updateBoardForm"
     />
-    <br>
 
     <b :class="labelStyle">it cost:</b>
     <boarding-card-text-field
@@ -84,7 +87,7 @@ export default {
 
   data: () => {
     return {
-      labelStyle: 'text-body-2 grey--text',
+      labelStyle: 'boardCardLabel text-body-2 grey--text',
     }
   },
 
@@ -119,3 +122,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.boardCardLabel {
+  vertical-align: top;
+}
+</style>

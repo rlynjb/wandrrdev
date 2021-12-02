@@ -20,14 +20,22 @@
     </v-col>
 
     <v-col cols="12" class="location-container pl-0 pr-0 pt-2 pb-0">
-      <form-toggle>
-        <template v-slot:field>
-          <v-btn>
-            map
+      <v-row>
+        <v-col cols="1">
+          <v-btn
+            @click="gotoGmap"
+            icon
+            x-large
+            class="primary--text"
+          >
+            <v-icon>
+              mdi-map-marker
+            </v-icon>
           </v-btn>
-          at {{ board.area_address }}
-        </template>
-        <template v-slot:form>
+        </v-col>
+
+        <v-col cols="11"
+          class="pl-5">
           <boarding-card-text-field
             label="street, city, state, country, zipcode"
             name="area_address"
@@ -35,30 +43,27 @@
             class="d-inline-block"
             @newvalue="updateBoardForm"
           />
+
           <boarding-card-text-field
+            v-if="isUserAuthenticated"
             label="lat, long"
             name="area_coordinates"
             :value="board.area_coordinates"
             class="d-inline-block"
             @newvalue="updateBoardForm"
           />
-        </template>
-      </form-toggle>
 
-      <form-toggle class="pt-2">
-        <template v-slot:field>
-          and its {{ board.area_type }} type of neighborhood
-        </template>
-        <template v-slot:form>
           <boarding-card-text-field
-            label="urban, downtown, burrough, suburbs"
+            label="ex. urban, downtown, burrough, suburbs"
             name="area_type"
             :value="board.area_type"
             class="d-inline-block"
             @newvalue="updateBoardForm"
           />
-        </template>
-      </form-toggle>
+
+          type of neighborhood
+        </v-col>
+      </v-row>
     </v-col>
   </v-card-title>
 
@@ -169,6 +174,10 @@ export default {
       return this.$store.state.boards[this.boardID];
     },
 
+    area_address() {
+      return this.board.area_address;
+    },
+
     isUserAuthenticated() {
       return this.$store.state.auth.isUserAuthenticated;
     },
@@ -187,6 +196,11 @@ export default {
   },
 
   methods: {
+    gotoGmap() {
+      let googleMapUrlSearch = `https://www.google.com/maps/place/${ this.area_address.replaceAll(' ',  '+') }`;
+      window.open(googleMapUrlSearch, '_blank');
+    },
+
     updateBoardForm: _.debounce(function(val) {
       if (!this.board) return;
       // make sure values aren't the same, else, its going to override with an empty value

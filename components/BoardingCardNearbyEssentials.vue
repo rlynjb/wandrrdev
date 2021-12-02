@@ -2,32 +2,32 @@
   <div>
     <b :class="labelStyle">0.5miles radius within where i stayed</b><br>
     <v-btn depressed
-      class="mt-3"
+      class="mt-3 mr-2 primary"
       @click="gotoGmap('public_transit')">
       public transits
     </v-btn>
     <v-btn depressed
-      class="mt-3"
+      class="mt-3 mr-2 primary"
       @click="gotoGmap('cafes')">
       cafes
     </v-btn>
     <v-btn depressed
-      class="mt-3"
+      class="mt-3 mr-2 primary"
       @click="gotoGmap('groceries')">
       groceries
     </v-btn>
     <v-btn depressed
-      class="mt-3"
+      class="mt-3 mr-2 primary"
       @click="gotoGmap('laundry')">
       laundry
     </v-btn>
     <v-btn depressed
-      class="mt-3"
+      class="mt-3 mr-2 primary"
       @click="gotoGmap('bars')">
       bars
     </v-btn>
     <v-btn depressed
-      class="mt-3"
+      class="mt-3 mr-2 primary"
       @click="gotoGmap('restaurants')">
       restaurants
     </v-btn>

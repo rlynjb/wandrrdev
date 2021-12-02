@@ -5,6 +5,9 @@
     solo flat filled
     v-model="valueCopy"
     :class="classNames"
+    @input="resizeField"
+    :style="{ width: newWidth }"
+    ref="textField"
   ></v-text-field>
 </template>
 
@@ -32,11 +35,15 @@ export default {
   data:() => {
     return {
       valueCopy: '',
+      newWidth: '',
     }
   },
 
-  created() {
+  mounted() {
     this.valueCopy = JSON.parse( JSON.stringify(this.value) );
+
+    // calculate default width of field base on content
+    this.resizeField()
   },
 
   watch: {
@@ -64,6 +71,14 @@ export default {
   },
 
   methods: {
+    resizeField() {
+      if (this.valueCopy === "") {
+        this.newWidth = (this.label.length * 10) + 'px';
+        return;
+      }
+      this.newWidth = (this.valueCopy.length * 10) + 'px';
+    },
+
     clear() {
       this.valueCopy = "";
     }
@@ -73,6 +88,9 @@ export default {
 
 <style lang="scss">
 #boardingCard {
+  span.input {
+    min-width: 2em;
+  }
   // default text-field style
   .v-text-field input {
     padding: 0;

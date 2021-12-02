@@ -1,6 +1,6 @@
 <template>
 <div class="pt-6 pb-16">
-  <v-row>
+  <v-row class="pa-3 grey darken-4">
     <v-col>
       <div v-if="isUserAuthenticated"
         class="d-inline-block mr-3">
@@ -23,7 +23,9 @@
       </v-btn>
     </v-col>
   </v-row>
-  <v-row v-if="isUserAuthenticated">
+
+  <v-row v-if="isUserAuthenticated"
+    class="blue-grey darken-4 mt-8 mb-3">
     <v-col cols="6" sm="12" md="6" lg="6" xl="6">
       <boarding-card-text-field
         label="Where are you going to stay?"

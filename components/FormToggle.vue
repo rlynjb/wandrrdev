@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div class="d-inline-block">
+    <div>
       <slot name="field"></slot>
     </div>
 
-    <div v-if="isUserAuthenticated"
-      class="d-inline-block">
+    <div v-if="isUserAuthenticated">
       <v-btn v-if="!show"
         @click="() => show = true"
         icon
