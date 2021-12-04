@@ -162,9 +162,8 @@ export default {
 
   data: () => {
     return {
-      labelStyle: 'text-body-2 grey--text',
       panelHeaderStyle: 'text-overline grey--text text--darken-1 primary--text font-weight-bold',
-      defaultOpenPanels: [1,2],
+      defaultOpenPanels: [],
     }
   },
 

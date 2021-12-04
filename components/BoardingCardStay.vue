@@ -87,7 +87,7 @@ export default {
 
   data: () => {
     return {
-      labelStyle: 'boardCardLabel text-body-2 grey--text',
+      labelStyle: 'boardCardLabel text-body-2 primary--text',
     }
   },
 

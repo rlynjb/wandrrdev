@@ -84,7 +84,7 @@ export default {
 
   data: () => {
     return {
-      labelStyle: 'text-body-2 grey--text',
+      labelStyle: 'text-body-2 primary--text',
       form: {
         name: ""
       }
