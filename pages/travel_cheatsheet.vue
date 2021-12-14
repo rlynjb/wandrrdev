@@ -67,7 +67,7 @@
     <v-col cols="12" sm="12" md="6" lg="4" xl="4"
       v-for="(board, boardID, boardIndex) in boards"
       :key="'board-'+boardIndex">
-      <boarding-card :boardItem="board" :boardID="boardID" />
+      <boarding-card :boardID="boardID" />
     </v-col>
   </v-row>
 </div>

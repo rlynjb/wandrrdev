@@ -37,6 +37,7 @@
         <v-col cols="11"
           class="pl-5">
           <boarding-card-text-field
+            v-if="isUserAuthenticated"
             label="street, city, state, country, zipcode"
             name="area_address"
             :value="board.area_address"
@@ -73,6 +74,11 @@
     multiple
     v-model="defaultOpenPanels"
   >
+    <v-expansion-panel
+      class="text-center">
+      <image-field />
+    </v-expansion-panel>
+
     <v-expansion-panel>
       <v-expansion-panel-header class="pt-0 pb-0"
         expand-icon="mdi-bed"
@@ -151,9 +157,18 @@ import BoardingCardPublicTransit from './BoardingCardPublicTransit.vue';
 import BoardingCardNearbyEssentials from './BoardingCardNearbyEssentials.vue';
 
 import _ from 'lodash';
+import ImageField from './ImageField.vue';
 
 export default {
-  components: { BoardingCardTextField, BoardingCardStay, BoardingCardArrival, BoardingCardPublicTransit, BoardingCardNearbyEssentials },
+  components: {
+    BoardingCardTextField,
+    BoardingCardStay,
+    BoardingCardArrival,
+    BoardingCardPublicTransit,
+    BoardingCardNearbyEssentials,
+    ImageField,
+  },
+
   props: {
     boardID: {
       type: String,
