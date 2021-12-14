@@ -76,7 +76,7 @@
   >
     <v-expansion-panel
       class="text-center">
-      <image-field />
+      <image-field :boardID="boardID" />
     </v-expansion-panel>
 
     <v-expansion-panel>

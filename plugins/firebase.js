@@ -12,6 +12,10 @@ import {
   signOut,
 } from "firebase/auth";
 
+import {
+  getStorage
+} from "firebase/storage";
+
 /*
   NOTE:
   Transfer firebase app init here,
@@ -34,11 +38,12 @@ const firebaseConfig = {
   // form https://[databaseName].[region].firebasedatabase.app.
   // For example, https://your-database-123.europe-west1.firebasedatabase.app
   databaseURL: "https://thewandrr-bb83c-default-rtdb.firebaseio.com/",
-  //storageBucket: "bucket.appspot.com"
+  storageBucket: "gs://thewandrr-bb83c.appspot.com"
 };
 
 const firebaseInit = initializeApp(firebaseConfig);
 const firebaseDatabaseRef = getDatabase(firebaseInit);
+const firebaseStorageRef = getStorage(firebaseInit);
 
 /*
   NOTE:
@@ -70,4 +75,5 @@ export {
   firebaseDatabaseRef,
   firebaseAuth,
   firebaseProvider,
+  firebaseStorageRef,
 }

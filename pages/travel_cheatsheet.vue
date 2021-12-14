@@ -43,7 +43,7 @@
 
     <v-col cols="6" sm="12" md="6" lg="6" xl="6"
       class="grey--text text--darken-2">
-      How was the travel (travel card Coming soon)
+      How was the travel? (travel card Coming soon)
     </v-col>
   </v-row>
 
@@ -123,6 +123,8 @@ export default {
         */
         console.log(err)
       });
+
+    this.$store.dispatch('storage/getBoardImgs');
   },
 
   methods: {
