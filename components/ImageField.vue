@@ -56,10 +56,10 @@ export default {
 
     deleteBoardImg() {
       this.$store.dispatch('updateBoard', {
-          id: this.boardID,
-          key: 'main_photo',
-          value: ""
-        });
+        id: this.boardID,
+        key: 'main_photo',
+        value: ""
+      });
     },
   },
 }

@@ -76,7 +76,19 @@
   >
     <v-expansion-panel
       class="text-center">
-      <image-field :boardID="boardID" />
+      <v-carousel
+        :show-arrows="false"
+        hide-delimiter-background
+        delimiter-icon="mdi-minus"
+      >
+        <v-carousel-item>
+          <image-field :boardID="boardID" />
+        </v-carousel-item>
+
+        <v-carousel-item>
+          youtube video
+        </v-carousel-item>
+      </v-carousel>
     </v-expansion-panel>
 
     <v-expansion-panel>
