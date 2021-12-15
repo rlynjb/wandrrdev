@@ -36,6 +36,7 @@ export default {
 
   computed: {
     imgSrc() {
+      if (!this.boardID) return;
       return this.$store.state.boards[this.boardID].main_photo;
     },
   },

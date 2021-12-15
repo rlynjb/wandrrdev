@@ -17,7 +17,37 @@ import {
 // VUEX STORE
 export const state = () => ({
   boards: null,
-})
+  boardSchema: {
+    area_name: "", // area code/name ex. Durham near Duke University
+    area_type: "", // ex. urban, downtown, burrough, suburbs
+    area_coordinates: "",
+    area_address: "", // full address
+    name: "", // ex. apt complex or airbnb or coliving.com, etc
+    price: "",
+    stayed_date_from: "",
+    stayed_date_to: "",
+    desc: "",
+    amenities: "", // shared resources
+    included: "", // whats included privately
+    website: "", // if there is
+    arrival_from: "",
+    arrival_transport: "",
+    arrival_cost: "",
+    transit: {}, // transitSchema
+    main_photo: "",
+  },
+  transitSchema: {
+    name: "",
+    cost: "",
+    where_purchase: "",
+    info_link: ""
+  },
+  activitySchema: {
+    title: "",
+    date: "",
+    
+  },
+});
 
 export const mutations = {
   setBoards(state, val) {

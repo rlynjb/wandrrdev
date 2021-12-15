@@ -69,14 +69,20 @@
       :key="'board-'+boardIndex">
       <boarding-card :boardID="boardID" />
     </v-col>
+
+    <v-col cols="12" sm="12" md="6" lg="4" xl="4">
+      <activity-card />
+    </v-col>
   </v-row>
 </div>
 </template>
 
 <script>
 import BoardingCard from '../components/BoardingCard.vue'
+import ActivityCard from '../components/ActivityCard.vue'
+
 export default {
-  components: { BoardingCard },
+  components: { BoardingCard, ActivityCard },
   data: () => {
     return {
       area_name: '',
