@@ -26,6 +26,9 @@ export default {
     boardID: {
       type: String,
     },
+    imgsrc: {
+      type: String,
+    },
   },
 
   data() {
@@ -46,16 +49,20 @@ export default {
       // encode the file using the FileReader API
       const reader = new FileReader();
       reader.onloadend = () => {
+
+        // emit value
         this.$store.dispatch('updateBoard', {
           id: this.boardID,
           key: 'main_photo',
           value: reader.result
         });
+
       };
       reader.readAsDataURL($event);
     },
 
     deleteBoardImg() {
+      // emit boolean
       this.$store.dispatch('updateBoard', {
         id: this.boardID,
         key: 'main_photo',
