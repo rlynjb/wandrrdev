@@ -1,5 +1,13 @@
 <template>
-  <div>
+  <div class="text-right">
+    <v-btn
+      v-if="imgSrc"
+      icon
+      @click="deleteBoardImg"
+    >
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
+
     <img v-if="imgSrc" :src="imgSrc" />
 
     <v-file-input
@@ -28,26 +36,30 @@ export default {
 
   computed: {
     imgSrc() {
-      return '';
-    },
-
-    boardImgs() {
-      return this.$store.state.storage.boardImgs;
+      return this.$store.state.boards[this.boardID].main_photo;
     },
   },
 
   methods: {
     uploadBoardImg($event) {
-      this.$store.dispatch('storage/uploadBoardImg', {
-        boardID: this.boardID,
-        file: $event,
-      })
-      .then(res => {
-        console.log('UPLOAD SUCCESS')
-      })
-      .catch(err => {
-        console.log('UPLOAD ERROR', err)
-      });
+      // encode the file using the FileReader API
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        this.$store.dispatch('updateBoard', {
+          id: this.boardID,
+          key: 'main_photo',
+          value: reader.result
+        });
+      };
+      reader.readAsDataURL($event);
+    },
+
+    deleteBoardImg() {
+      this.$store.dispatch('updateBoard', {
+          id: this.boardID,
+          key: 'main_photo',
+          value: ""
+        });
     },
   },
 }

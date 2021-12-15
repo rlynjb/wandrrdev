@@ -2,6 +2,7 @@ import {
   ref,
   uploadBytes,
   listAll,
+  getDownloadURL,
 } from "firebase/storage";
 
 import {
@@ -10,10 +11,6 @@ import {
 
 
 export const state = () => ({
-  boardImgSchema: {
-    boardID: "",
-    file: null,
-  },
   boardImgs: null,
 });
 
@@ -25,37 +22,43 @@ export const mutations = {
 
 export const actions = {
   getBoardImgs({ commit }) {
-    const listRef = ref(firebaseStorageRef, 'boardImages');
-    // Create a reference from a Google Cloud Storage URI
-    //const gsReference = ref(firebaseStorageRef, 'gs://bucket/images/stars.jpg');
-
     /*
-      NOTE:
-      ideas is to create a list containing all images
-      {
-        boardID: https://firebasestorage.googleapis.com/v0/b/thewandrr-bb83c.appspot.com/o/boardImages%2F{ boardID }%2F{ filename w extension }?alt=media&token={ access token }
-      }
-      so we can just access the image by passing in boardID
+      params:
+      collection storage: boardImages
+      boardID: ''
     */
+    const listRef = ref(firebaseStorageRef, 'boardImages');
 
-    listAll(listRef)
-      .then((res) => {
-        console.log(res.prefixes)
-        /*
+    return new Promise((resolve, reject) => {
+      let boardImgs = {};
+
+      listAll(listRef).then((res) => {
         res.prefixes.forEach((folderRef) => {
-          // All the prefixes under listRef.
-          // You may call listAll() recursively on them.
+          // get all boardID names
+          listAll(ref(firebaseStorageRef, folderRef.fullPath)).then((imgsRes) => {
+            imgsRes.items.forEach((itemRef) => {
+              boardImgs[itemRef.parent.name] = [];
+              getDownloadURL(ref(firebaseStorageRef, itemRef.fullPath)).then(urlRes => {
+                boardImgs[itemRef.parent.name].push(urlRes);
+              })
+              .catch(err => {
+                console.log(err)
+              })
+            });    
+          });
         });
-        res.items.forEach((itemRef) => {
-          // All the items under listRef.
-        });
-        */
+
+        commit('setBoardImgs', boardImgs);
+        resolve(boardImgs);
+
       }).catch((error) => {
         // Uh-oh, an error occurred!
+        reject(error)
       });
+    });
   },
 
-  uploadBoardImg({ commit }, { boardID, file }) {
+  uploadBoardImg({ commit, dispatch }, { boardID, file }) {
     const boardImgsRef = ref(firebaseStorageRef, `boardImages/${boardID}/${file.name}`);
     // append boardID to filename. ex, boardID-filename.jpg
 

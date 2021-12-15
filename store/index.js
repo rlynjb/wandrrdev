@@ -57,7 +57,8 @@ const boardSchema = {
   arrival_from: "",
   arrival_transport: "",
   arrival_cost: "",
-  transit: {} // transitSchema
+  transit: {}, // transitSchema
+  main_photo: "",
 }
 
 export const actions = {

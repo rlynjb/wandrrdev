@@ -123,8 +123,6 @@ export default {
         */
         console.log(err)
       });
-
-    this.$store.dispatch('storage/getBoardImgs');
   },
 
   methods: {
