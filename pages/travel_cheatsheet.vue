@@ -27,7 +27,7 @@
   <v-row v-if="isUserAuthenticated"
     class="blue-grey darken-4 mt-8 mb-3">
     <v-col cols="6" sm="12" md="6" lg="6" xl="6">
-      <boarding-card-text-field
+      <text-field
         label="Where are you going to stay?"
         name="area_name"
         :value="area_name"

@@ -11,7 +11,7 @@
 
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
     <v-col cols="12" class="pa-0">
-      <boarding-card-text-field
+      <text-field
         label="What's the area?"
         name="area_name"
         :value="board.area_name"
@@ -36,7 +36,7 @@
 
         <v-col cols="11"
           class="pl-5">
-          <boarding-card-text-field
+          <text-field
             v-if="isUserAuthenticated"
             label="street, city, state, country, zipcode"
             name="area_address"
@@ -45,7 +45,7 @@
             @newvalue="updateBoardForm"
           />
 
-          <boarding-card-text-field
+          <text-field
             v-if="isUserAuthenticated"
             label="lat, long"
             name="area_coordinates"
@@ -54,7 +54,7 @@
             @newvalue="updateBoardForm"
           />
 
-          <boarding-card-text-field
+          <text-field
             label="ex. urban, downtown, burrough, suburbs"
             name="area_type"
             :value="board.area_type"
@@ -162,7 +162,7 @@
 </template>
 
 <script>
-import BoardingCardTextField from './BoardingCardTextField.vue';
+import TextField from './TextField.vue';
 import BoardingCardStay from './BoardingCardStay.vue';
 import BoardingCardArrival from './BoardingCardArrival.vue';
 import BoardingCardPublicTransit from './BoardingCardPublicTransit.vue';
@@ -173,7 +173,7 @@ import ImageField from './ImageField.vue';
 
 export default {
   components: {
-    BoardingCardTextField,
+    TextField,
     BoardingCardStay,
     BoardingCardArrival,
     BoardingCardPublicTransit,

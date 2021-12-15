@@ -2,7 +2,7 @@
   <div v-if="board">
     <b :class="labelStyle">during:</b>
     <div class="d-inline-block">
-      <boarding-card-text-field
+      <text-field
         label="from: MM/DD/YYYY"
         name="stayed_date_from"
         :value="board.stayed_date_from"
@@ -12,7 +12,7 @@
 
       <b :class="labelStyle">-</b>
 
-      <boarding-card-text-field
+      <text-field
         label="to: MM/DD/YYYY"
         name="stayed_date_to"
         :value="board.stayed_date_to"
@@ -26,7 +26,7 @@
     <br>
 
     <b :class="labelStyle">in:</b>
-    <boarding-card-text-field
+    <text-field
       label="What's the name?"
       name="name"
       :value="board.name"
@@ -35,7 +35,7 @@
     />
 
     <b :class="labelStyle">it cost:</b>
-    <boarding-card-text-field
+    <text-field
       label="What's price range?"
       name="price"
       :value="board.price"
@@ -45,7 +45,7 @@
     <br>
 
     <b :class="labelStyle">the place has:</b>
-    <boarding-card-text-area
+    <text-area
       label="what's the building amenities?"
       name="amenities"
       :value="board.amenities"
@@ -54,7 +54,7 @@
     />
 
     <b :class="labelStyle">my room has:</b>
-    <boarding-card-text-area
+    <text-area
       label="what's in your room?"
       name="included"
       :value="board.included"
@@ -63,7 +63,7 @@
     />
 
     <b :class="labelStyle">whats it like:</b>
-    <boarding-card-text-area
+    <text-area
       label="what's it like day time?, night time? How's the walk? Is it clean?"
       name="desc"
       :value="board.desc"

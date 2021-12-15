@@ -32,7 +32,7 @@
         </v-btn>
 
         <div>
-          <boarding-card-text-field
+          <text-field
             label="What ride option?"
             name="name"
             :value="transit.name"
@@ -40,7 +40,7 @@
             @newvalue="updateBoardTransit($event, transitKey)"
           />
           <span :class="labelStyle">cost $</span>
-          <boarding-card-text-field
+          <text-field
             label="How much?"
             name="cost"
             :value="transit.cost"
@@ -48,7 +48,7 @@
             @newvalue="updateBoardTransit($event, transitKey)"
           />
           <span :class="labelStyle">and tickets are sold at </span>
-          <boarding-card-text-field
+          <text-field
             label="Where to buy?"
             name="where_purchase"
             :value="transit.where_purchase"
@@ -59,7 +59,7 @@
       </li>
 
       <li v-if="isUserAuthenticated">
-        <boarding-card-text-field
+        <text-field
           label="What ride option?"
           name="name"
           :value="form.name"

@@ -1,7 +1,7 @@
 <template>
   <div v-if="board">
     <span :class="labelStyle">from</span>
-    <boarding-card-text-field
+    <text-field
       label="what airport/train?"
       name="arrival_from"
       :value="board.arrival_from"
@@ -12,7 +12,7 @@
     <span :class="labelStyle">,</span>
 
     <span :class="labelStyle">took</span>
-    <boarding-card-text-field
+    <text-field
       label="what transit service?"
       name="arrival_transport"
       :value="board.arrival_transport"
@@ -21,7 +21,7 @@
     />
 
     <span :class="labelStyle">and it cost around $</span>
-    <boarding-card-text-field
+    <text-field
       label="how much?"
       name="arrival_cost"
       :value="board.arrival_cost"
