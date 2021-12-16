@@ -1,5 +1,5 @@
 <template>
-<v-card flat class="deep-purple darken-4">
+<v-card flat class="activityCard deep-purple darken-4">
   <v-btn v-if="isUserAuthenticated"
     @click="deleteActivity"
     depressed
@@ -21,24 +21,20 @@
   </v-card-title>
 
   <v-card-text>
-    <b :class="labelStyle">Where:</b>
-    <text-field
-      label="address, name of establishment, or area ex. east midtown manhattan"
-      name="location"
-      @newvalue="updateActivityForm"
-    />
-
-    <b :class="labelStyle">When was this:</b>
-    <text-field
-      label="MM/DD/YYYY"
-      name="date"
-      class="d-inline-block"
-      @newvalue="updateActivityForm"
+    <b :class="labelStyle">at</b>
+    <location-field
+      addressName="area_address"
+      addressValue=""
+      coordinatesName="area_coordinates"
+      coordinatesValue=""
+      neighborhoodName="area_type"
+      neighborhoodValue=""
+      @onUpdateAddress="updateActivityForm"
     />
 
     <br>
 
-    <b :class="labelStyle">During:</b>
+    <b :class="labelStyle">during</b>
     <text-field
       label="morning, noon, evening, late night"
       name="time"
@@ -59,6 +55,16 @@
     <text-area
       label="was the place busy? was it compact? was there any inconvenience?"
       name="desc"
+      class="d-inline-block"
+      @newvalue="updateActivityForm"
+    />
+
+    <br>
+
+    <b :class="labelStyle">When was this:</b>
+    <text-field
+      label="MM/DD/YYYY"
+      name="date"
       class="d-inline-block"
       @newvalue="updateActivityForm"
     />

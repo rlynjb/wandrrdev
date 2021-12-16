@@ -38,7 +38,13 @@
 
     <v-col cols="6" sm="12" md="6" lg="6" xl="6"
       class="grey--text text--darken-2">
-      What did you do today? (daily card Coming soon)
+      <text-field
+        label="What did you do today?"
+        name="title"
+        value=""
+        @newvalue="postActivityForm"
+        ref="title"
+      />
     </v-col>
 
     <v-col cols="6" sm="12" md="6" lg="6" xl="6"

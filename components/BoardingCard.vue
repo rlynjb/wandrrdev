@@ -20,51 +20,15 @@
     </v-col>
 
     <v-col cols="12" class="location-container pl-0 pr-0 pt-2 pb-0">
-      <v-row>
-        <v-col cols="1">
-          <v-btn
-            @click="gotoGmap"
-            icon
-            x-large
-            class="primary--text"
-          >
-            <v-icon>
-              mdi-map-marker
-            </v-icon>
-          </v-btn>
-        </v-col>
-
-        <v-col cols="11"
-          class="pl-5">
-          <text-field
-            v-if="isUserAuthenticated"
-            label="street, city, state, country, zipcode"
-            name="area_address"
-            :value="board.area_address"
-            class="d-inline-block"
-            @newvalue="updateBoardForm"
-          />
-
-          <text-field
-            v-if="isUserAuthenticated"
-            label="lat, long"
-            name="area_coordinates"
-            :value="board.area_coordinates"
-            class="d-inline-block"
-            @newvalue="updateBoardForm"
-          />
-
-          <text-field
-            label="ex. urban, downtown, burrough, suburbs"
-            name="area_type"
-            :value="board.area_type"
-            class="d-inline-block"
-            @newvalue="updateBoardForm"
-          />
-
-          type of neighborhood
-        </v-col>
-      </v-row>
+      <location-field
+        addressName="area_address"
+        :addressValue="board.area_address"
+        coordinatesName="area_coordinates"
+        :coordinatesValue="board.area_coordinates"
+        neighborhoodName="area_type"
+        :neighborhoodValue="board.area_type"
+        @onUpdateAddress="updateBoardForm"
+      />
     </v-col>
   </v-card-title>
 
@@ -176,6 +140,7 @@ import BoardingCardNearbyEssentials from './BoardingCardNearbyEssentials.vue';
 
 import _ from 'lodash';
 import ImageField from './ImageField.vue';
+import LocationField from './LocationField.vue';
 
 export default {
   components: {
@@ -185,6 +150,7 @@ export default {
     BoardingCardPublicTransit,
     BoardingCardNearbyEssentials,
     ImageField,
+    LocationField,
   },
 
   props: {
