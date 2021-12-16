@@ -15,6 +15,7 @@
       <text-field
         label="chill, explore, errands, work"
         name="title"
+        :value="activity.title"
         @newvalue="updateActivityForm"
       />
     </v-col>
@@ -89,13 +90,24 @@
 
 <script>
 export default {
+  props: {
+    activityID: {
+      type: String,
+    },
+  },
+
   data() {
     return {
-      labelStyle: 'boardCardLabel text-body-2 primary--text',
+      labelStyle: 'activityCardLabel text-body-2 primary--text',
     }
   },
 
   computed: {
+    activity() {
+      if (!this.$store.state.activities) return;
+      return this.$store.state.activities[this.activityID];
+    },
+
     isUserAuthenticated() {
       return this.$store.state.auth.isUserAuthenticated;
     },

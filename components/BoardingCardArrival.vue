@@ -57,7 +57,8 @@ export default {
       // make sure values aren't the same, else, its going to override with an empty value
       if (this.board[val.name] === val.value) return;
 
-      this.$store.dispatch('updateBoard', {
+      this.$store.dispatch('updatePost', {
+        collection: 'boards',
         id: this.boardID,
         key: val.name,
         value: val.value

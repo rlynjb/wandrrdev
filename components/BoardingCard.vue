@@ -200,11 +200,13 @@ export default {
     },
 
     uploadImg(val) {
-      this.$store.dispatch('updateBoard', val);
+      val['collection'] = 'boards';
+      this.$store.dispatch('updatePost', val);
     },
 
     deleteImg(val) {
-      this.$store.dispatch('updateBoard', val);
+      val['collection'] = 'boards';
+      this.$store.dispatch('updatePost', val);
     },
 
     updateBoardForm: _.debounce(function(val) {
@@ -212,7 +214,8 @@ export default {
       // make sure values aren't the same, else, its going to override with an empty value
       if (this.board[val.name] === val.value) return;
 
-      this.$store.dispatch('updateBoard', {
+      this.$store.dispatch('updatePost', {
+        collection: 'boards',
         id: this.boardID,
         key: val.name,
         value: val.value
@@ -226,7 +229,10 @@ export default {
     }, 1000),
 
     deleteBoard() {
-      this.$store.dispatch('deleteBoard', this.boardID);
+      this.$store.dispatch('deletePost', {
+        collection: 'boards',
+        id: this.boardID
+      });
     },
   },
 }

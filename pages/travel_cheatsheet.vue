@@ -76,8 +76,10 @@
       <boarding-card :boardID="boardID" />
     </v-col>
 
-    <v-col cols="12" sm="12" md="6" lg="4" xl="4">
-      <activity-card />
+    <v-col cols="12" sm="12" md="6" lg="4" xl="4"
+      v-for="(activity, activityID, activityIndex) in activities"
+      :key="'activity-'+activityIndex">
+      <activity-card :activityID="activityID" />
     </v-col>
   </v-row>
 </div>
@@ -118,6 +120,9 @@ export default {
   },
 
   computed: {
+    activities() {
+      return this.$store.state.activities;
+    },
     boards() {
       return this.$store.state.boards;
     },
@@ -127,19 +132,44 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('getBoards')
+    this.$store.dispatch('getPosts', 'boards')
+      .then(res => {
+        this.$store.commit('setBoards', res);
+      })
       .catch(err => {
-        /*
-          if boards collection is empty, set
-          some kind of sign here
-        */
+        console.log(err)
+      });
+
+
+    this.$store.dispatch('getPosts', 'activities')
+      .then(res => {
+        this.$store.commit('setActivities', res);
+      })
+      .catch(err => {
         console.log(err)
       });
   },
 
   methods: {
+    postActivityForm: _.debounce(function(val) {
+      this.$store.dispatch('createNewPost', {
+        collection: "activities",
+        schema: this.$store.state.activitySchema,
+        key: val.name,
+        value: val.value
+      })
+      .then(() => {
+        this.$refs.title.clear();
+      })
+      .catch(err => {
+        console.log(err)
+      });
+    }, 1000),
+
     postBoardForm: _.debounce(function(val) {
-      this.$store.dispatch('postBoard', {
+      this.$store.dispatch('createNewPost', {
+        collection: "boards",
+        schema: this.$store.state.boardSchema,
         key: val.name,
         value: val.value
       })
