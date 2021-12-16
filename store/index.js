@@ -68,21 +68,83 @@ export const mutations = {
 
   setActivities(state, val) {
     state.activities = val;
+  },
+
+  setBoardPostValue(state, val) {
+    state.boardSchema.area_name = val;
+  },
+
+  setActivityPostValue(state, val) {
+    state.activitySchema.title = val;
   }
 }
 
 
 export const actions = {
-  createNewPost({ commit }, { collection, schema, key, value }) {
+  getBoardPosts({ commit }) {
+    /*
+      NOTE:
+      watch if a child has been added on this collection (boards)
+      ref: https://bigcodenerd.org/realtime-database-firebase-promises-api/
+
+      after playing around with it, onValue automatically detects
+      changes to a collection whether if something is added, deleted
+    */
+    return new Promise((resolve, reject) => {
+      const postsRef = ref(firebaseDatabaseRef, "boards");
+      onValue(postsRef, (data) => {
+        if (data) {
+          resolve(data.val());
+          commit('setBoards', data.val());
+          return;
+        }
+        reject(null);
+      });
+    });
+  },
+
+  getActivityPosts({ commit }) {
+    /*
+      NOTE:
+      watch if a child has been added on this collection (boards)
+      ref: https://bigcodenerd.org/realtime-database-firebase-promises-api/
+
+      after playing around with it, onValue automatically detects
+      changes to a collection whether if something is added, deleted
+    */
+    return new Promise((resolve, reject) => {
+      const postsRef = ref(firebaseDatabaseRef, "activities");
+      onValue(postsRef, (data) => {
+        if (data) {
+          resolve(data.val());
+          commit('setActivities', data.val());
+          return;
+        }
+        reject(null);
+      });
+    });
+  },
+
+  createBoardPost({ commit, state }) {
     /*
       Create a new post reference with an auto-generated id
       ref: https://firebase.google.com/docs/database/web/lists-of-data?authuser=0
     */
-    const collectionRef = ref(firebaseDatabaseRef, collection);
+    const collectionRef = ref(firebaseDatabaseRef, "boards");
     const newPostRef = push(collectionRef);
 
-    schema[key] = value;
-    return set(newPostRef, schema);
+    return set(newPostRef, state.boardSchema);
+  },
+
+  createActivityPost({ commit, state }) {
+    /*
+      Create a new post reference with an auto-generated id
+      ref: https://firebase.google.com/docs/database/web/lists-of-data?authuser=0
+    */
+    const collectionRef = ref(firebaseDatabaseRef, "activities");
+    const newPostRef = push(collectionRef);
+
+    return set(newPostRef, state.activitySchema);
   },
 
   updatePost({ commit }, { collection, id, key, value }) {
@@ -101,27 +163,6 @@ export const actions = {
   deletePost({ dispatch }, { collection, id }) {
     const boardsRef = ref(firebaseDatabaseRef, `${ collection }/${ id }`);
     remove(boardsRef)
-  },
-
-  getPosts({ commit }, collection) {
-    /*
-      NOTE:
-      watch if a child has been added on this collection (boards)
-      ref: https://bigcodenerd.org/realtime-database-firebase-promises-api/
-
-      after playing around with it, onValue automatically detects
-      changes to a collection whether if something is added, deleted
-    */
-    return new Promise((resolve, reject) => {
-      const postsRef = ref(firebaseDatabaseRef, collection);
-      onValue(postsRef, (data) => {
-        if (data) {
-          resolve(data.val());
-          return;
-        }
-        reject(null);
-      });
-    });
   },
 
   postBoardTransit({ commit, state }, { id, key, value }) {

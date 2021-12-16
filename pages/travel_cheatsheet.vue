@@ -132,18 +132,18 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('getPosts', 'boards')
+    this.$store.dispatch('getBoardPosts', 'boards')
       .then(res => {
-        this.$store.commit('setBoards', res);
+        //
       })
       .catch(err => {
         console.log(err)
       });
 
 
-    this.$store.dispatch('getPosts', 'activities')
+    this.$store.dispatch('getActivityPosts', 'activities')
       .then(res => {
-        this.$store.commit('setActivities', res);
+        //
       })
       .catch(err => {
         console.log(err)
@@ -152,33 +152,25 @@ export default {
 
   methods: {
     postActivityForm: _.debounce(function(val) {
-      this.$store.dispatch('createNewPost', {
-        collection: "activities",
-        schema: this.$store.state.activitySchema,
-        key: val.name,
-        value: val.value
-      })
-      .then(() => {
-        this.$refs.title.clear();
-      })
-      .catch(err => {
-        console.log(err)
-      });
+      this.$store.commit('setActivityPostValue', val.value);
+      this.$store.dispatch('createActivityPost')
+        .then(() => {
+          this.$refs.title.clear();
+        })
+        .catch(err => {
+          console.log(err)
+        });
     }, 1000),
 
     postBoardForm: _.debounce(function(val) {
-      this.$store.dispatch('createNewPost', {
-        collection: "boards",
-        schema: this.$store.state.boardSchema,
-        key: val.name,
-        value: val.value
-      })
-      .then(() => {
-        this.$refs.area_name.clear();
-      })
-      .catch(err => {
-        console.log(err)
-      });
+      this.$store.commit('setBoardPostValue', val.value);
+      this.$store.dispatch('createBoardPost')
+        .then(() => {
+          this.$refs.area_name.clear();
+        })
+        .catch(err => {
+          console.log(err)
+        });
     }, 1000),
 
     logout() {
