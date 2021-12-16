@@ -1,21 +1,21 @@
 <template>
   <div class="text-right">
     <v-btn
-      v-if="imgSrc"
+      v-if="value"
       icon
-      @click="deleteBoardImg"
+      @click="deleteImg"
     >
       <v-icon>mdi-close</v-icon>
     </v-btn>
 
-    <img v-if="imgSrc" :src="imgSrc" />
+    <img v-if="value" :src="value" />
 
     <v-file-input
       v-else
       class="ml-7 mr-7"
       truncate-length="15"
       prepend-icon="mdi-image-size-select-actual"
-      @change="uploadBoardImg"
+      @change="uploadImg"
     ></v-file-input>
   </div>
 </template>
@@ -26,7 +26,10 @@ export default {
     boardID: {
       type: String,
     },
-    imgsrc: {
+    value: {
+      type: String,
+    },
+    name: {
       type: String,
     },
   },
@@ -37,23 +40,16 @@ export default {
     }
   },
 
-  computed: {
-    imgSrc() {
-      if (!this.boardID) return;
-      return this.$store.state.boards[this.boardID].main_photo;
-    },
-  },
-
   methods: {
-    uploadBoardImg($event) {
+    uploadImg($event) {
       // encode the file using the FileReader API
       const reader = new FileReader();
       reader.onloadend = () => {
 
         // emit value
-        this.$store.dispatch('updateBoard', {
+        this.$emit('onUploadImg', {
           id: this.boardID,
-          key: 'main_photo',
+          key: this.name,
           value: reader.result
         });
 
@@ -61,11 +57,11 @@ export default {
       reader.readAsDataURL($event);
     },
 
-    deleteBoardImg() {
+    deleteImg() {
       // emit boolean
-      this.$store.dispatch('updateBoard', {
+      this.$emit('onDeleteImg', {
         id: this.boardID,
-        key: 'main_photo',
+        key: this.name,
         value: ""
       });
     },

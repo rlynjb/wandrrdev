@@ -82,7 +82,13 @@
         delimiter-icon="mdi-minus"
       >
         <v-carousel-item>
-          <image-field :boardID="boardID" />
+          <image-field
+            :boardID="boardID"
+            name="main_photo"
+            :value="board.main_photo"
+            @onUploadImg="uploadImg"
+            @onDeleteImg="deleteImg"
+          />
         </v-carousel-item>
 
         <v-carousel-item>
@@ -225,6 +231,14 @@ export default {
     gotoGmap() {
       let googleMapUrlSearch = `https://www.google.com/maps/place/${ this.area_address.replaceAll(' ',  '+') }`;
       window.open(googleMapUrlSearch, '_blank');
+    },
+
+    uploadImg(val) {
+      this.$store.dispatch('updateBoard', val);
+    },
+
+    deleteImg(val) {
+      this.$store.dispatch('updateBoard', val);
     },
 
     updateBoardForm: _.debounce(function(val) {
