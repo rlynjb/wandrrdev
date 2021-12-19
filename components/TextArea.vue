@@ -1,4 +1,5 @@
 <template>
+<div id="customTextArea">
   <v-textarea
     :readonly="!isUserAuthenticated"
     :placeholder="label"
@@ -7,6 +8,7 @@
     :class="classNames"
     rows="1"
   ></v-textarea>
+</div>
 </template>
 
 <script>
@@ -73,7 +75,9 @@ export default {
 </script>
 
 <style lang="scss">
-#boardingCard {
+#customTextArea {
+  width: 100%;
+
   // default text-area style
   .v-application--is-ltr .v-textarea.v-text-field--enclosed .v-text-field__slot textarea {
     padding-right: 0;
@@ -83,6 +87,20 @@ export default {
   }
   .v-application--is-ltr .v-textarea.v-text-field--enclosed .v-text-field__slot {
     margin-right: 0;
+  }
+  .theme--dark.v-text-field--solo > .v-input__control > .v-input__slot {
+    background: unset;
+    border-radius: 0;
+  }
+  .theme--dark.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 0;
+  }
+  .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot, .v-text-field.v-text-field--enclosed .v-text-field__details {
+    padding: 0;
+  }
+  .v-text-field.v-text-field--enclosed .v-text-field__details {
+    display: none;
   }
 }
 </style>

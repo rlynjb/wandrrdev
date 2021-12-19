@@ -22,7 +22,6 @@
   </v-card-title>
 
   <v-card-text>
-    <b :class="labelStyle">at</b>
     <location-field
       addressName="address"
       :addressValue="activity.address"

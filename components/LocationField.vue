@@ -1,5 +1,5 @@
 <template>
-<v-row>
+<v-row class="location-container">
   <v-col cols="1">
     <v-btn
       @click="gotoGmap"
@@ -41,7 +41,7 @@
       @newvalue="updateForm"
     />
 
-    type of neighborhood
+    <span class="d-block mt-1">type of neighborhood</span>
   </v-col>
 </v-row>
 </template>
@@ -104,5 +104,23 @@ export default {
 </script>
 
 <style lang="scss">
+  .location-container {
+    font-size: 0.7em;
+    font-weight: 400;
+    color: grey;
+    line-height: 1;
 
+    input, label {
+      color: grey;
+      font-size: 0.9em;
+    }
+
+    .v-input {
+      width: 100%;
+    }
+    .v-btn {
+      height: 1.7em;
+      width: 1.7em;
+    }
+  }
 </style>

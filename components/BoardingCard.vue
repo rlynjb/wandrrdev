@@ -12,6 +12,7 @@
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
     <v-col cols="12" class="pa-0">
       <text-field
+        class="boardingCard-title"
         label="What's the area?"
         name="area_name"
         :value="board.area_name"
@@ -19,7 +20,7 @@
       />
     </v-col>
 
-    <v-col cols="12" class="location-container pl-0 pr-0 pt-2 pb-0">
+    <v-col cols="12" class="pl-0 pr-0 pt-2 pb-0">
       <location-field
         addressName="area_address"
         :addressValue="board.area_address"
@@ -101,6 +102,7 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
 
+    <!--
     <v-expansion-panel>
       <v-expansion-panel-header
         expand-icon="mdi-food-fork-drink"
@@ -113,6 +115,7 @@
         <boarding-card-nearby-essentials :boardID="boardID" />
       </v-expansion-panel-content>
     </v-expansion-panel>
+    -->
   </v-expansion-panels>
 </v-card>
 </template>
@@ -235,39 +238,19 @@ export default {
   }
 
   // custom form styles per each section of boardCard
-  .v-card__title {
-    label, input {
-      color: #9575cd;
-      font-size: 1.25rem;
-    }
+  .boardingCard-title input {
+    color: #9575cd;
+    font-size: 1.25rem;
   }
   .v-expansion-panel-content {
     textarea {
       line-height: 1.5em;
     }
-    .v-textarea.v-text-field--solo {
-      width: 100%;
-    }
   }
 
-  // override title location styles
   .location-container {
-    font-size: 0.7em;
-    font-weight: 400;
-    color: grey;
-    line-height: 1;
-
-    input, label {
-      color: grey;
-      font-size: 0.9em;
-    }
-
-    .v-input {
-      width: 100%;
-    }
-    .v-btn {
-      height: 1.7em;
-      width: 1.7em;
+    input {
+      color: #fff;
     }
   }
 }
