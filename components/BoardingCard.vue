@@ -34,90 +34,90 @@
     </v-col>
   </v-card-title>
 
-  <v-expansion-panels
-    flat
-    focusable
-    multiple
-    v-model="defaultOpenPanels"
+
+  <v-carousel
+    hide-delimiter-background
+    delimiter-icon="mdi-minus"
   >
-    <v-expansion-panel
-      class="text-center">
-      <v-carousel
-        :show-arrows="false"
-        hide-delimiter-background
-        delimiter-icon="mdi-minus"
+    <v-carousel-item>
+      <v-expansion-panels
+        flat
+        focusable
+        multiple
+        v-model="defaultOpenPanels"
       >
-        <v-carousel-item>
-          <image-field
-            collection="boards"
-            :formID="boardID"
-            name="main_photo"
-            :value="board.main_photo"
-            @onUploadImg="uploadImg"
-            @onDeleteImg="deleteImg"
-          />
-        </v-carousel-item>
+        <v-expansion-panel>
+          <v-expansion-panel-header class="pt-0 pb-0"
+            expand-icon="mdi-bed"
+            disable-icon-rotate>
+            <h3 :class="panelHeaderStyle">
+              <span>Stayed</span>
+            </h3>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <boarding-card-stay :boardID="boardID" />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-        <v-carousel-item>
-          youtube video
-        </v-carousel-item>
-      </v-carousel>
-    </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            expand-icon="mdi-car"
+            disable-icon-rotate>
+            <h3 :class="panelHeaderStyle">
+              when you arrive, how to get here
+            </h3>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <boarding-card-arrival :boardID="boardID" />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-    <v-expansion-panel>
-      <v-expansion-panel-header class="pt-0 pb-0"
-        expand-icon="mdi-bed"
-        disable-icon-rotate>
-        <h3 :class="panelHeaderStyle">
-          <span>Stayed</span>
-        </h3>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <boarding-card-stay :boardID="boardID" />
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            expand-icon="mdi-subway-variant"
+            disable-icon-rotate>
+            <h3 :class="panelHeaderStyle">
+              public transit pass
+            </h3>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <boarding-card-public-transit :boardID="boardID" />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
 
-    <v-expansion-panel>
-      <v-expansion-panel-header
-        expand-icon="mdi-car"
-        disable-icon-rotate>
-        <h3 :class="panelHeaderStyle">
-          when you arrive, how to get here
-        </h3>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <boarding-card-arrival :boardID="boardID" />
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+        <!--
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            expand-icon="mdi-food-fork-drink"
+            disable-icon-rotate>
+            <h3 :class="panelHeaderStyle">
+              Nearby Essentials
+            </h3>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <boarding-card-nearby-essentials :boardID="boardID" />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+        -->
+      </v-expansion-panels>
+    </v-carousel-item>
 
-    <v-expansion-panel>
-      <v-expansion-panel-header
-        expand-icon="mdi-subway-variant"
-        disable-icon-rotate>
-        <h3 :class="panelHeaderStyle">
-          public transit pass
-        </h3>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <boarding-card-public-transit :boardID="boardID" />
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+    <v-carousel-item>
+      <image-field
+        collection="boards"
+        :formID="boardID"
+        name="main_photo"
+        :value="board.main_photo"
+        @onUploadImg="uploadImg"
+        @onDeleteImg="deleteImg"
+      />
+    </v-carousel-item>
 
-    <!--
-    <v-expansion-panel>
-      <v-expansion-panel-header
-        expand-icon="mdi-food-fork-drink"
-        disable-icon-rotate>
-        <h3 :class="panelHeaderStyle">
-          Nearby Essentials
-        </h3>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <boarding-card-nearby-essentials :boardID="boardID" />
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-    -->
-  </v-expansion-panels>
+    <v-carousel-item>
+      youtube video
+    </v-carousel-item>
+  </v-carousel>
+
 </v-card>
 </template>
 

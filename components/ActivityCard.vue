@@ -85,7 +85,6 @@
       </v-carousel-item>
 
       <v-carousel-item>
-        any fun pic?
         <image-field
           collection="activities"
           :formID="activityID"
