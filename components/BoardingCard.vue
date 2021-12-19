@@ -11,6 +11,7 @@
 
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
     <v-col cols="12" class="pa-0">
+      <v-icon>mdi-bed</v-icon>
       <text-field
         class="boardingCard-title"
         label="What's the area?"

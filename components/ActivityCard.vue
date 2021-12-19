@@ -9,8 +9,13 @@
     <v-icon>mdi-close</v-icon>
   </v-btn>
 
-  <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
+  <v-card-title class="pl-7 pr-7 pt-6 pb-2 primary--text">
     <v-col cols="12" class="pa-0">
+      <v-icon>mdi-laptop</v-icon>
+      <v-icon>mdi-compass</v-icon>
+      <v-icon>mdi-coffee</v-icon>
+      <v-icon>mdi-cart</v-icon>
+      <br>
       What did you do today?
       <text-area
         label="chill, explore, errands, work"
