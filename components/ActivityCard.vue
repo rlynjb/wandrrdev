@@ -12,7 +12,7 @@
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
     <v-col cols="12" class="pa-0">
       What did you do today?
-      <text-field
+      <text-area
         label="chill, explore, errands, work"
         name="title"
         :value="activity.title"
@@ -32,52 +32,53 @@
       @onUpdateAddress="updateActivityForm"
     />
 
-    <br>
-
-    <b :class="labelStyle">during</b>
-    <text-field
-      label="morning, noon, evening, late night"
-      name="time"
-      :value="activity.time"
-      class="d-inline-block"
-      @newvalue="updateActivityForm"
-    />
-
-    <br>
-
-    <b :class="labelStyle">Did it cost anything?</b>
-    <text-field
-      label="yea? no? how much? what was it?"
-      name="cost"
-      :value="activity.cost"
-      @newvalue="updateActivityForm"
-    />
-
-    <b :class="labelStyle">how was it?</b>
-    <text-area
-      label="was the place busy? was it compact? was there any inconvenience?"
-      name="desc"
-      :value="activity.desc"
-      class="d-inline-block"
-      @newvalue="updateActivityForm"
-    />
-
-    <br>
-
-    <b :class="labelStyle">When was this:</b>
-    <text-field
-      label="MM/DD/YYYY"
-      name="date"
-      :value="activity.date"
-      class="d-inline-block"
-      @newvalue="updateActivityForm"
-    />
+    <v-divider class="mt-8 mb-8" />
 
     <v-carousel
-      :show-arrows="false"
       hide-delimiter-background
       delimiter-icon="mdi-minus"
     >
+      <v-carousel-item>
+        <b :class="labelStyle">during</b>
+        <text-field
+          label="morning, noon, evening, late night"
+          name="time"
+          :value="activity.time"
+          class="d-inline-block"
+          @newvalue="updateActivityForm"
+        />
+
+        <br>
+
+        <b :class="labelStyle">Did it cost anything?</b>
+        <text-field
+          label="yea? no? how much? what was it?"
+          name="cost"
+          :value="activity.cost"
+          @newvalue="updateActivityForm"
+        />
+
+        <b :class="labelStyle">how was it?</b>
+        <text-area
+          label="was the place busy? was it compact? was there any inconvenience?"
+          name="desc"
+          :value="activity.desc"
+          class="d-inline-block"
+          @newvalue="updateActivityForm"
+        />
+
+        <br>
+
+        <b :class="labelStyle">When was this:</b>
+        <text-field
+          label="MM/DD/YYYY"
+          name="date"
+          :value="activity.date"
+          class="d-inline-block"
+          @newvalue="updateActivityForm"
+        />
+      </v-carousel-item>
+
       <v-carousel-item>
         any fun pic?
         <image-field
