@@ -24,12 +24,12 @@
   <v-card-text>
     <b :class="labelStyle">at</b>
     <location-field
-      addressName="area_address"
-      addressValue=""
-      coordinatesName="area_coordinates"
-      coordinatesValue=""
-      neighborhoodName="area_type"
-      neighborhoodValue=""
+      addressName="address"
+      :addressValue="activity.address"
+      coordinatesName="coordinates"
+      :coordinatesValue="activity.coordinates"
+      neighborhoodName="neighbor"
+      :neighborhoodValue="activity.neighbor"
       @onUpdateAddress="updateActivityForm"
     />
 
@@ -39,6 +39,7 @@
     <text-field
       label="morning, noon, evening, late night"
       name="time"
+      :value="activity.time"
       class="d-inline-block"
       @newvalue="updateActivityForm"
     />
@@ -49,6 +50,7 @@
     <text-field
       label="yea? no? how much? what was it?"
       name="cost"
+      :value="activity.cost"
       @newvalue="updateActivityForm"
     />
 
@@ -56,6 +58,7 @@
     <text-area
       label="was the place busy? was it compact? was there any inconvenience?"
       name="desc"
+      :value="activity.desc"
       class="d-inline-block"
       @newvalue="updateActivityForm"
     />
@@ -66,6 +69,7 @@
     <text-field
       label="MM/DD/YYYY"
       name="date"
+      :value="activity.date"
       class="d-inline-block"
       @newvalue="updateActivityForm"
     />
@@ -77,7 +81,14 @@
     >
       <v-carousel-item>
         any fun pic?
-        <image-field />
+        <image-field
+          collection="activities"
+          :formID="activityID"
+          name="photo"
+          :value="activity.photo"
+          @onUploadImg="uploadImg"
+          @onDeleteImg="deleteImg"
+        />
       </v-carousel-item>
 
       <v-carousel-item>
@@ -89,6 +100,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 export default {
   props: {
     activityID: {
@@ -114,11 +127,38 @@ export default {
   },
 
   methods: {
-    updateActivityForm() {
-      //
+    uploadImg(val) {
+      this.$store.dispatch('updatePost', val);
     },
+
+    deleteImg(val) {
+      this.$store.dispatch('updatePost', val);
+    },
+
+    updateActivityForm: _.debounce(function(val) {
+      if (!this.activity) return;
+      // make sure values aren't the same, else, its going to override with an empty value
+      if (this.activity[val.name] === val.value) return;
+
+      this.$store.dispatch('updatePost', {
+        collection: 'activities',
+        id: this.activityID,
+        key: val.name,
+        value: val.value
+      })
+      .then(() => {
+        console.log('UPDATE SUCCESS')
+      })
+      .catch(err => {
+        console.log('ERR', err)
+      });
+    }, 1000),
+
     deleteActivity() {
-      //
+      this.$store.dispatch('deletePost', {
+        collection: 'activities',
+        id: this.activityID
+      });
     },
   },
 }

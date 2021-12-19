@@ -23,7 +23,10 @@
 <script>
 export default {
   props: {
-    boardID: {
+    collection: {
+      type: String,
+    },
+    formID: {
       type: String,
     },
     value: {
@@ -48,7 +51,8 @@ export default {
 
         // emit value
         this.$emit('onUploadImg', {
-          id: this.boardID,
+          collection: this.collection,
+          id: this.formID,
           key: this.name,
           value: reader.result
         });
@@ -60,7 +64,8 @@ export default {
     deleteImg() {
       // emit boolean
       this.$emit('onDeleteImg', {
-        id: this.boardID,
+        collection: this.collection,
+        id: this.formID,
         key: this.name,
         value: ""
       });

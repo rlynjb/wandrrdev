@@ -47,7 +47,8 @@
       >
         <v-carousel-item>
           <image-field
-            :boardID="boardID"
+            collection="boards"
+            :formID="boardID"
             name="main_photo"
             :value="board.main_photo"
             @onUploadImg="uploadImg"
@@ -112,21 +113,6 @@
         <boarding-card-nearby-essentials :boardID="boardID" />
       </v-expansion-panel-content>
     </v-expansion-panel>
-<!--
-    <v-expansion-panel>
-      <v-expansion-panel-header
-        expand-icon="mdi-align-vertical-bottom"
-        disable-icon-rotate>
-        <h3 :class="panelHeaderStyle">
-          Estimate Cost of stay:
-        </h3>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <b :class="labelStyle">includes *stay, *arrival transit, *public transit pass</b><br>
-        ${{ estimate_cost }}
-      </v-expansion-panel-content>
-    </v-expansion-panel>
--->
   </v-expansion-panels>
 </v-card>
 </template>
@@ -179,18 +165,6 @@ export default {
     isUserAuthenticated() {
       return this.$store.state.auth.isUserAuthenticated;
     },
-
-    estimate_cost() {
-      if (!this.board) return;
-
-      let stayCost = !isNaN(this.board.price) ? parseInt(this.board.price) : 0;
-      let arrivalTransit = parseInt(this.board.arrival_cost);
-      let publicTransitCost = this.board.transit.reduce((accumulator, a) => {
-        return parseInt(accumulator.cost) + parseInt(a.cost);
-      });
-
-      return stayCost + arrivalTransit + publicTransitCost;
-    },
   },
 
   methods: {
@@ -200,12 +174,10 @@ export default {
     },
 
     uploadImg(val) {
-      val['collection'] = 'boards';
       this.$store.dispatch('updatePost', val);
     },
 
     deleteImg(val) {
-      val['collection'] = 'boards';
       this.$store.dispatch('updatePost', val);
     },
 
