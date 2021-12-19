@@ -15,8 +15,8 @@
       <v-icon>mdi-compass</v-icon>
       <v-icon>mdi-coffee</v-icon>
       <v-icon>mdi-cart</v-icon>
+      <v-icon>mdi-silverware-fork-knife</v-icon>
       <br>
-      What did you do today?
       <text-area
         label="chill, explore, errands, work"
         name="title"
@@ -170,5 +170,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+.activityCard {
+  .v-card__title textarea {
+    color: #9575cd;
+    font-size: 1.3em;
+  }
+}
 </style>
