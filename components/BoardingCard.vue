@@ -12,7 +12,7 @@
   <v-card-title class="pl-7 pr-7 pt-6 pb-6 primary--text">
     <v-col cols="12" class="pa-0">
       <v-icon>mdi-bed</v-icon>
-      <text-field
+      <text-area
         class="boardingCard-title"
         label="What's the area?"
         name="area_name"
@@ -123,6 +123,7 @@
 
 <script>
 import TextField from './TextField.vue';
+import TextArea from './TextArea.vue';
 import BoardingCardStay from './BoardingCardStay.vue';
 import BoardingCardArrival from './BoardingCardArrival.vue';
 import BoardingCardPublicTransit from './BoardingCardPublicTransit.vue';
@@ -135,6 +136,7 @@ import LocationField from './LocationField.vue';
 export default {
   components: {
     TextField,
+    TextArea,
     BoardingCardStay,
     BoardingCardArrival,
     BoardingCardPublicTransit,
@@ -239,7 +241,7 @@ export default {
   }
 
   // custom form styles per each section of boardCard
-  .boardingCard-title input {
+  .boardingCard-title textarea {
     color: #9575cd;
     font-size: 1.25rem;
   }

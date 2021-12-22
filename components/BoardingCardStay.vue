@@ -24,7 +24,7 @@
     </div>
 
     <br>
-
+<!--
     <b :class="labelStyle">in:</b>
     <text-field
       label="What's the name?"
@@ -33,7 +33,7 @@
       class="d-inline-block"
       @newvalue="updateBoardForm"
     />
-
+-->
     <b :class="labelStyle">it cost:</b>
     <text-field
       label="What's price range?"
