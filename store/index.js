@@ -6,6 +6,7 @@ import {
   remove,
   onValue,
 } from "firebase/database";
+import { VSlideGroup } from "vuetify/lib";
 
 import {
   firebaseDatabaseRef
@@ -23,6 +24,7 @@ export const state = () => ({
     schemas: {},
   },
   boardSchema: {
+    type: "board",
     area_name: "", // area code/name ex. Durham near Duke University
     area_type: "", // ex. urban, downtown, burrough, suburbs
     area_coordinates: "",
@@ -48,6 +50,7 @@ export const state = () => ({
     info_link: ""
   },
   activitySchema: {
+    type: "activity",
     title: "",
     date: "",
     address: "",
@@ -62,6 +65,10 @@ export const state = () => ({
 });
 
 export const mutations = {
+  setAllCards(state, val) {
+    state.allCards = val;
+  },
+
   setBoards(state, val) {
     state.boards = val;
   },

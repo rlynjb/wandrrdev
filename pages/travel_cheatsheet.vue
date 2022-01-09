@@ -71,15 +71,14 @@
 
   <v-row>
     <v-col cols="12" sm="12" md="6" lg="4" xl="4"
-      v-for="(board, boardID, boardIndex) in boards"
-      :key="'board-'+boardIndex">
-      <boarding-card :boardID="boardID" />
-    </v-col>
-
-    <v-col cols="12" sm="12" md="6" lg="4" xl="4"
-      v-for="(activity, activityID, activityIndex) in activities"
-      :key="'activity-'+activityIndex">
-      <activity-card :activityID="activityID" />
+      v-for="(card, cardID, cardIndex) in allCards"
+      :key="'card-'+cardIndex">
+      <boarding-card v-if="card.type === 'board'"
+        :boardID="cardID"
+      />
+      <activity-card v-if="card.type === 'activity'"
+        :activityID="cardID"
+      />
     </v-col>
   </v-row>
 </div>
@@ -93,6 +92,7 @@ export default {
   components: { BoardingCard, ActivityCard },
   data: () => {
     return {
+      allCards: null,
       area_name: '',
       cities: [
         {
@@ -131,6 +131,17 @@ export default {
     }
   },
 
+  watch: {
+    activities() {
+      // combine items
+      this.combineAllCards();
+    },
+    boards() {
+      // combine items
+      this.combineAllCards();
+    },
+  },
+
   created() {
     this.$store.dispatch('getBoardPosts', 'boards')
       .then(res => {
@@ -151,6 +162,29 @@ export default {
   },
 
   methods: {
+    combineAllCards() {
+      const res = [
+        this.boards,
+        this.activities
+      ];
+
+      // combine all items in a single object
+      const arr = {};
+      for (let i=0; i<=res.length - 1; i++) {
+        for (const key in res[i]) {
+          arr[key] = res[i][key];
+        }
+      }
+
+      /** 
+       * sort by date
+       * ref: https://stackoverflow.com/questions/1069666/sorting-object-property-by-values
+      */
+
+
+      this.allCards = arr;
+    },
+
     postActivityForm: _.debounce(function(val) {
       this.$store.commit('setActivityPostValue', val.value);
       this.$store.dispatch('createActivityPost')

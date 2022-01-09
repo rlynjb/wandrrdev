@@ -34,7 +34,6 @@
     </v-col>
   </v-card-title>
 
-
   <v-carousel
     hide-delimiter-background
     delimiter-icon="mdi-minus"
@@ -154,7 +153,7 @@ export default {
   data: () => {
     return {
       panelHeaderStyle: 'text-overline grey--text text--darken-1 primary--text font-weight-bold',
-      defaultOpenPanels: [],
+      defaultOpenPanels: [0],
     }
   },
 

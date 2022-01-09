@@ -1,22 +1,22 @@
 <template>
-  <div v-if="board">
+  <div v-if="board" id="boardingCardStay">
     <b :class="labelStyle">during:</b>
     <div class="d-inline-block">
       <text-field
         label="from: MM/DD/YYYY"
         name="stayed_date_from"
         :value="board.stayed_date_from"
-        class="d-inline-block"
+        class="d-inline-block date-field"
         @newvalue="updateBoardForm"
       />
 
-      <b :class="labelStyle">-</b>
+      <b :class="labelStyle" class="ml-2 mr-2">-</b>
 
       <text-field
         label="to: MM/DD/YYYY"
         name="stayed_date_to"
         :value="board.stayed_date_to"
-        class="d-inline-block"
+        class="d-inline-block date-field"
         @newvalue="updateBoardForm"
       />
       <br>
@@ -124,8 +124,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .boardCardLabel {
   vertical-align: top;
+}
+
+#boardingCardStay {
+  .date-field {
+    width: 27%;
+  }
 }
 </style>
